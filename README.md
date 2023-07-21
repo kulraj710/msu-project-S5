@@ -14,3 +14,6 @@ The core functionalities of the software includes
 4.) Secure data handling
 5.) data visualisation
 
+
+# Task List
+[Click here](https://www.projoodle.com/7ca6300293b3408a8b17b254f5f63250/397879d2753d49e387a0cdec5030d5c3) to view task list
