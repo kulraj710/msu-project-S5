@@ -14,6 +14,7 @@ export default function Home() {
 
       <main>
         <h2>This is the homepage for Financial AI chatbot</h2>
+        <h2>Pratik</h2>
       </main>
 
       <footer></footer>
