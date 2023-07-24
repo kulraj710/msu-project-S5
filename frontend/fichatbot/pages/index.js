@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       {/* for SEO */}
       <Head>
         <title>Financial AI chatbot</title>
@@ -14,7 +14,7 @@ export default function Home() {
 
       <main>
         <h2>This is the homepage for Financial AI chatbot</h2>
-        <h2>Pratik</h2>
+        <p>Kuchh bhi</p>
       </main>
 
       <footer></footer>
