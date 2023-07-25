@@ -134,10 +134,10 @@ intents_mapping = {
 assistant_AI = GenericAssistant('intents.json', intent_methods=intents_mapping,
                                 model_name="kulraj")
 # 1st time initialization of the model
-assistant_AI.train_model()
-assistant_AI.save_model()
+#assistant_AI.train_model()
+#assistant_AI.save_model()
 # After first initialization (load model instead)
-# assistant_AI.load_model(model_name="kulraj")
+assistant_AI.load_model(model_name="kulraj")
 
 
 
