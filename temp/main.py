@@ -17,8 +17,8 @@ from tensorflow.keras.optimizers import SGD
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 
-# nltk.download('punkt', quiet=True)
-# nltk.download('wordnet', quiet=True)
+#nltk.download('punkt', quiet=True)
+#nltk.download('wordnet', quiet=True)
 
 class IAssistant(metaclass=ABCMeta):
 
