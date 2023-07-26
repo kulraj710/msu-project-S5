@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pandas_datareader as web
 import mplfinance as mpf
-
+import yfinance as yf
 import pickle
 import sys
 import datetime as dt
@@ -99,14 +99,15 @@ def portfolio_gains():
 # Allows to plot a specific stock in a candle chart
 def plot_chart():
     ticker = input("Choose a ticker symbol: ")
-    start_string = input("Choose a starting date (DD/MM/YYYY): ")
+    # start_string = input("Choose a starting date (YYYY-): ")
 
-    start_date = dt.datetime.strptime(start_string, "%d%m%Y")
-    end_date = dt.datetime.now()
-    stock_data = web.DataReader(ticker, 'yahoo', start_date, end_date)
+    # start_date = dt.datetime.strptime(start_string, "%d/%m/%Y")
+    # end_date = dt.datetime.now()
+    stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
+    # stock_data = web.DataReader(ticker, 'yahoo', start_date, end_date)
 
     # Visual set up for the candlestick chart (from mplfinance)
-    plt.style.use('dark_background')
+    plt.style.available('light_background')
     colors = mpf.make_marketcolors(up='#00ff00', down='#ff0000', volume='in', wick='inherit', edge='inherit')
     # Up = Green, Down = Red
     mpf_style = mpf.make_mpf_style(base_mpf_style='mike', marketcolors=colors)
@@ -134,10 +135,10 @@ intents_mapping = {
 assistant_AI = GenericAssistant('intents.json', intent_methods=intents_mapping,
                                 model_name="kulraj")
 # 1st time initialization of the model
-assistant_AI.train_model()
-assistant_AI.save_model()
+# assistant_AI.train_model()
+# assistant_AI.save_model()
 # After first initialization (load model instead)
-# assistant_AI.load_model(model_name="kulraj")
+assistant_AI.load_model(model_name="kulraj")
 
 
 
