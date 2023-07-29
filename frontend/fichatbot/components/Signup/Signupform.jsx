@@ -1,8 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import TextFieldComponent from '../../layouts/TextFieldComponent';
 import styles from '../../styles/Login/Login.module.css';
 
-const SignupForm = () => {
+const SignupForm = ({values,setValues,errorMsg,setErrorMsg,submitButtonDisabled,setSubmitButtonDisabled}) => {
+
   return (
     <>
       <form>
@@ -12,6 +13,8 @@ const SignupForm = () => {
             placeholder="Enter full name"
             fullWidth
             autoComplete='name'
+            onChange={event=>setValues(prev=>({...prev,name:event.target.value}))}
+
           />
         </div>
 
@@ -22,6 +25,7 @@ const SignupForm = () => {
             placeholder="Enter Email"
             fullWidth
             autoComplete='username'
+            onChange={event=>setValues(prev=>({...prev,email:event.target.value}))}
           />
         </div>
 
@@ -33,6 +37,7 @@ const SignupForm = () => {
             placeholder="Enter Password"
             fullWidth
             autoComplete='current-password'
+            onChange={event=>setValues(prev=>({...prev,pass:event.target.value}))}
           />
         </div>
 
@@ -44,8 +49,10 @@ const SignupForm = () => {
             placeholder="Confirm Password"
             fullWidth
             autoComplete='current-password'
+            onChange={event=>setValues(prev=>({...prev,c_pass:event.target.value}))}
           />
         </div>
+        <b className={styles.error}><center>{errorMsg}</center></b>
       </form>
     </>
   );

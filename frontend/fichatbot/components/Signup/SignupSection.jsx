@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styles from '../../styles/Login/Login.module.css';
 import Link from 'next/link';
 import DividorComponent from '../../layouts/DividorComponent';
@@ -10,6 +10,16 @@ import GoogleSignup from './GoogleSignup';
 import EmailSignup from './EmailSignup';
 
 const SignupSection = () => {
+
+  const[values,setValues] =useState({
+    name:"",
+    email: "",
+    pass:"",
+    c_pass: "",
+})
+
+  const [errorMsg,setErrorMsg]=useState("");
+  const [submitButtonDisabled,setSubmitButtonDisabled] = useState(false);
   return (
     <div>
       <main className={styles.container}>
@@ -33,7 +43,7 @@ const SignupSection = () => {
           </div>
 
           <div id={styles.textFieldContainer}>
-            <SignupForm />
+            <SignupForm values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
 
           <div id={styles.changeForm}>
@@ -43,7 +53,7 @@ const SignupSection = () => {
           </div>
 
           <div id={styles.loginButton}>
-            <EmailSignup />
+            <EmailSignup  values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
         </section>
 

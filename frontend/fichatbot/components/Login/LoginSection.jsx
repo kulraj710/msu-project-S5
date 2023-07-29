@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "../../styles/Login/Login.module.css";
 import GoogleLogin from "./GoogleLogin";
 import EmailLogin from "./EmailLogin";
@@ -11,6 +11,14 @@ import LoginForm from "./LoginForm";
 import LoginSection2 from "../Shared/LoginSection2";
 
 const LoginSection = () => {
+  const[values,setValues] =useState({
+    email: "",
+    pass:"",
+    c_pass: "",
+})
+
+  const [errorMsg,setErrorMsg]=useState("");
+  const [submitButtonDisabled,setSubmitButtonDisabled] = useState(false);
   return (
     <div>
       <main className={styles.container}>
@@ -34,7 +42,7 @@ const LoginSection = () => {
           </div>
 
           <div id={styles.textFieldContainer}>
-            <LoginForm />
+            <LoginForm values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
 
           <div id={styles.forgotPassword}>
@@ -45,7 +53,7 @@ const LoginSection = () => {
           </div>
 
           <div id={styles.loginButton}>
-            <EmailLogin />
+            <EmailLogin values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
         </section>
 
