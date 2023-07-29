@@ -23,7 +23,7 @@ const EmailLogin = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmit
   return (
     <>
       <ButtonComponent fullWidth onClick={loginHandler} bgColor='#5271FF' variant="contained" disabled={submitButtonDisabled}>Login</ButtonComponent>
-      <div>This is vishal</div>
+      {/* <div>This is vishal</div> */}
     </>
   );
 };

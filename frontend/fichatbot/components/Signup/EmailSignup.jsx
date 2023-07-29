@@ -14,12 +14,13 @@ const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmi
 
   setSubmitButtonDisabled(true);
   createUserWithEmailAndPassword(auth,values.email,values.pass).then(async (res)=>{
-    setSubmitButtonDisabled(false);
     const user=res.user 
+    console.log(user)
     await updateProfile(user,{
       displayName:values.name,
     })
-
+    
+    setSubmitButtonDisabled(false);
   }).catch((err)=>{
     setSubmitButtonDisabled(false)
     setErrorMsg(err.message)
