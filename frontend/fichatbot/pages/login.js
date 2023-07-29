@@ -1,13 +1,15 @@
 import React from "react";
-// import type { NextPage } from 'next'
 import LoginSection from "../components/Login/LoginSection";
 
-const login = () => {
+const Login = () => {
+
+  const [user, setUser] = React.useState(null)
+
   return (
     <div>
-      <LoginSection />
+      <LoginSection user={user} setUser={setUser}/>
     </div>
   );
 };
 
-export default login;
+export default Login;

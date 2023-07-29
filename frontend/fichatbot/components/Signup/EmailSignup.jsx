@@ -2,10 +2,11 @@ import React from 'react';
 import ButtonComponent from '../../layouts/ButtonComponent';
 import {createUserWithEmailAndPassword,updateProfile} from 'firebase/auth'
 import { auth } from '../../firebase';
-import Link from 'next/link';
 
 const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmitButtonDisabled}) => {
-  const SignUpHandler=()=>{
+  const [signUser, setSignUser] = React.useState(null)
+
+  const SignUpHandler = () => {
     if(!values.name || !values.email || !values.pass || !values.c_pass){
       setErrorMsg("fill all the fields"); 
       return;
@@ -16,6 +17,7 @@ const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmi
   createUserWithEmailAndPassword(auth,values.email,values.pass).then(async (res)=>{
     const user=res.user 
     console.log(user)
+    setSignUser(user.uid)
     await updateProfile(user,{
       displayName:values.name,
     })
@@ -26,9 +28,9 @@ const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmi
     setErrorMsg(err.message)
   });
 }
-
   return (
     <>
+    <h1>Current user is : {signUser}</h1>
       <ButtonComponent
         fullWidth
         onClick={SignUpHandler}
@@ -37,14 +39,12 @@ const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmi
         disabled={submitButtonDisabled}
         
       >
-        <Link href={'/'}>
         Create new account
-        </Link>
       </ButtonComponent>
+
     </>
   );
-};
-
+  }
 export default EmailSignup;
 
 
