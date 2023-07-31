@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Sidebar from "../components/Home/Sidebar";
+import Navbar from "../components/Home/Navbar";
 import UserInput from "../components/Home/UserInput";
 // import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
@@ -15,8 +16,7 @@ export default function Home() {
       </Head>
 
       <main>
-        {/* <h2>This is the homepage for Financial AI chatbot</h2>
-        <h2>Pratik</h2> */}
+        <Navbar />
         <Sidebar />
         <UserInput />
       </main>
