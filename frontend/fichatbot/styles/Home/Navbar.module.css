@@ -1,0 +1,22 @@
+.navbar {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: lightblue;
+}
+
+.navbar div ul {
+    display: flex;
+}
+
+.navbar ul li button {
+    margin: 0 10px;
+    border-radius: 10px;
+    height: 30px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.navbar button:hover {
+    border: 1px solid var(--hover);
+}

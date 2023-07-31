@@ -4,7 +4,7 @@ import UserInput from './UserInput'
 const ChatContainer = () => {
   return (
     <div>
-      <UserInput/>
+      {/* <UserInput/> */}
     </div>
   )
 }

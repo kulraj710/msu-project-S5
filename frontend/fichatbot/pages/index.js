@@ -18,7 +18,7 @@ export default function Home() {
       <main>
         <Navbar />
         <Sidebar />
-        <UserInput />
+        
       </main>
 
       <footer></footer>
