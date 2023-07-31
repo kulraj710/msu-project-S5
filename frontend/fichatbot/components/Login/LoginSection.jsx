@@ -39,7 +39,7 @@ const LoginSection = () => {
 
           <div id={styles.forgotPassword}>
             <p id={styles.goToSignup}>
-              <Link href="/signup">Don't have an account? Sign up</Link>
+              <Link href="/signup">Don&apos;t have an account? Sign up</Link>
             </p>
             <ForgotPassword />
           </div>
