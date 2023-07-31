@@ -1,9 +1,10 @@
 import React from 'react'
+import UserInput from './UserInput'
 
 const ChatContainer = () => {
   return (
     <div>
-      <h1>hello</h1>
+      <UserInput/>
     </div>
   )
 }
