@@ -1,7 +1,7 @@
 .container{
     background-color: #E7F8FF;
     height: 100vh !important;
-    width: 310px;
+    width: var(--width-sidebar);
     offset: none;
     padding: 1rem 1.5rem 1rem 1.5rem;
 }

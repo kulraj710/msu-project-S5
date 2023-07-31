@@ -3,23 +3,32 @@ import IconButton from "@mui/material/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import styles from "../../styles/Home/Input.module.css"
+import Divider from '@mui/material/Divider';
 
 const UserInput = () => {
-    const styles = {
-        "margin": "0 2rem"
-    }
     return (
-        <div style={styles}>
-            <OutlinedInput
-                placeholder='Enter text here'
-                fullWidth
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton><SendIcon /></IconButton>
-                    </InputAdornment>}
-            />
+        <div className={styles.container}>
+
+
+            {/* <div className={styles.divider}>
+                <Divider />
+            </div> */}
+
+            <div>
+
+                <OutlinedInput
+                    placeholder='Enter text here'
+                    fullWidth
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton><SendIcon /></IconButton>
+                        </InputAdornment>}
+                />
+            </div>
         </div>
     )
 }
 
 export default UserInput
+

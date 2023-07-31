@@ -1,0 +1,10 @@
+.container {
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    width: calc(100% - var(--width-sidebar));
+    padding: 1.5rem 1rem 1.5rem 1.5rem;
+}
+.divider{
+    padding: 3rem 0;
+}

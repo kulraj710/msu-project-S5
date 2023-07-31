@@ -23,4 +23,5 @@ li {
 :root {
   --hover: #1d93ab;
   --white: #ffffff;
+  --width-sidebar : 310px
 }
