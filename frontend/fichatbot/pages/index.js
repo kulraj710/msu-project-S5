@@ -1,13 +1,12 @@
 import Head from "next/head";
 import Sidebar from "../components/Home/Sidebar";
-import Navbar from "../components/Home/Navbar";
-import UserInput from "../components/Home/UserInput";
-import Content from "../components/Home/ContentContainer";
 import ContentContainer from "../components/Home/ContentContainer";
+import React from "react";
 // import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
   const styles = {
     "display": "flex",
     "width": "100%",
@@ -24,7 +23,7 @@ export default function Home() {
       <main>
         <section style={styles}>
           <div><Sidebar /></div>
-          <div><ContentContainer /></div>
+          <div><ContentContainer/></div>
         </section>
       </main>
 

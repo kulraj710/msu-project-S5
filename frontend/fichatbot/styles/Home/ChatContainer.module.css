@@ -1,0 +1,33 @@
+.ChatContainer{
+    /* border: 1px solid #ccc; */
+
+    margin : 1rem 2rem 0.2rem 2rem;
+}
+
+.messageList{
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+
+.message{
+    max-width: 30%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    /* set margin-left property here in the javascript to place element to the right */
+}
+
+.message > p {
+    font-size: 18px;
+}
+
+.time{
+    font-size: 10px;
+    color: gray;
+}
