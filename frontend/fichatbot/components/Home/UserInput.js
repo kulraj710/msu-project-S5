@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import styles from "../../styles/Home/Input.module.css"
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 
 const UserInput = ({chatArray, setChatArray}) => {
 

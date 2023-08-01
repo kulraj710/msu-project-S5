@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../../styles/Home/ChatContainer.module.css'
-import Chatbox from './ChatBox'
+import Chatbox from './Chatbox'
 
 const ChatContainer = ({chatArray}) => {
   return (
