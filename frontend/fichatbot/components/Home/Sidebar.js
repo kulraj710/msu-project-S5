@@ -14,9 +14,9 @@ const Sidebar = () => {
           <div className={styles.supportingText}>Ask your finance questions</div>
         </div>
 
-        <div className={styles.logo}>
-          <Image src={Logo} width={50} height={50} />
-        </div>
+      <div className={styles.logo}>
+      <Image src={Bot} width={50} height={50}/>
+      </div>
       </section>
 
       <section className={styles.section2}>
@@ -29,13 +29,14 @@ const Sidebar = () => {
       <section className={styles.section3}>
         <div className={styles.bottomFlexContainer}>
           <div>
-            <Image src={Logo} width={30} height={30} className={styles.bottomImage1} />
-            <Image src={Github} width={25} height={25} />
+          <Image alt='Bot' src={Bot} width={30} height={30} className={styles.bottomImage1}/>
+          <Image alt='github logo' src={Github} width={25} height={25}/>
           </div>
-          <div>
-            <button className={styles.newButton}>
-              <Image src={Add} width={20} height={20} className={styles.bottomImage1} />
-              <span>New Chat</span>
+        <div>
+          <button className={styles.newButton}>
+          <Image alt='logo' src={Add} width={20} height={20} className={styles.bottomImage1}/>
+
+            <span>New Chat</span>
             </button>
           </div>
         </div>
