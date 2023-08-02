@@ -40,7 +40,8 @@ function checkSession(){
       <div><h1>New Conversion</h1></div>
       <div>
         <ul>
-          <li id='btn1'><p>{(currentUser) ? currentUser.email : "You are not signed in!"}</p></li>
+          {/* <li id='btn1'><p>{(currentUser) ? currentUser.email : "You are not signed in!"}</p></li> */}
+          <li id='btn1'>{(currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{currentUser.name[0]}</Avatar> : "Please login"}</li>
           <li id='btn2'><button onClick={logoutHandler}>Logout</button></li>
           <li id='btn1'><button onClick={checkSession}>Check</button></li>
         </ul>
