@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "../../styles/Login/Login.module.css";
 import GoogleLogin from "./GoogleLogin";
 import EmailLogin from "./EmailLogin";
@@ -9,8 +9,22 @@ import Link from "next/link";
 import ForgotPassword from "./ForgotPassword";
 import LoginForm from "./LoginForm";
 import LoginSection2 from "../Shared/LoginSection2";
+import { useRouter } from 'next/router';
 
 const LoginSection = () => {
+
+  const router = useRouter()
+
+  const [values,setValues] = useState({
+    email: "",
+    pass:"",
+    c_pass: "",
+})
+
+const [user, setUser] = useState([])
+
+  const [errorMsg,setErrorMsg]=useState("");
+  const [submitButtonDisabled,setSubmitButtonDisabled] = useState(false)
   return (
     <div>
       <main className={styles.container}>
@@ -19,6 +33,11 @@ const LoginSection = () => {
             <Image src={Logo} alt="logo" width={70} height={70} />
           </div>
 
+
+{/* temp code, remove later */}
+<div>User id : {user[0]}</div>
+<div>Name : {user[1]}</div>
+<div>Email : {user[2]}</div>
           <div id={styles.welcome}>
             <h1>Login</h1>
           </div>
@@ -34,7 +53,7 @@ const LoginSection = () => {
           </div>
 
           <div id={styles.textFieldContainer}>
-            <LoginForm />
+            <LoginForm values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
 
           <div id={styles.forgotPassword}>
@@ -45,7 +64,7 @@ const LoginSection = () => {
           </div>
 
           <div id={styles.loginButton}>
-            <EmailLogin />
+            <EmailLogin user={user} setUser={setUser}  values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
         </section>
 
@@ -57,4 +76,3 @@ const LoginSection = () => {
 };
 
 export default LoginSection;
-

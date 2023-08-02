@@ -2,7 +2,7 @@ import React from 'react';
 import TextFieldComponent from '../../layouts/TextFieldComponent';
 import styles from '../../styles/Login/Login.module.css';
 
-const LoginForm = () => {
+const LoginForm = ({values,setValues,errorMsg,setErrorMsg,submitButtonDisabled,setSubmitButtonDisabled}) => {
   return (
     <>
       <form>
@@ -13,6 +13,7 @@ const LoginForm = () => {
             placeholder="Enter Email"
             fullWidth
             autoComplete='username'
+            onChange={event=>setValues((prev)=>({...prev,email:event.target.value}))}
           />
         </div>
 
@@ -24,8 +25,10 @@ const LoginForm = () => {
             placeholder="Enter Password"
             fullWidth
             autoComplete='current-password'
+            onChange={event=>setValues((prev)=>({...prev,pass:event.target.value}))}
           />
         </div>
+        <b className={styles.error}><center>{errorMsg}</center></b>
       </form>
     </>
   );
