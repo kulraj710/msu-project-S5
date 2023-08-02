@@ -15,7 +15,7 @@ const Sidebar = () => {
         </div>
 
       <div className={styles.logo}>
-      <Image src={Bot} width={50} height={50}/>
+      <Image src={Logo} width={50} height={50}/>
       </div>
       </section>
 
@@ -29,7 +29,7 @@ const Sidebar = () => {
       <section className={styles.section3}>
         <div className={styles.bottomFlexContainer}>
           <div>
-          <Image alt='Bot' src={Bot} width={30} height={30} className={styles.bottomImage1}/>
+          <Image alt='Bot' src={Logo} width={30} height={30} className={styles.bottomImage1}/>
           <Image alt='github logo' src={Github} width={25} height={25}/>
           </div>
         <div>
