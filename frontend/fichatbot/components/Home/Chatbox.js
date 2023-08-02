@@ -3,7 +3,7 @@ import styles from '../../styles/Home/ChatContainer.module.css'
 
 const Chatbox = ({positionBit, message, time, loading=false}) => {
   return (
-    <section style={{'margin-left' : (positionBit === 1) ? 'none' : 'auto'}} className={styles.message}>
+    <section style={{'marginLeft' : (positionBit === 1) ? 'none' : 'auto'}} className={styles.message}>
         {(loading) 
             ? 
             <p> Loading...</p> 

@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 
-const TextFieldComponent = ({ label, id, className, inputProps, placeholder, type, fullWidth, size, margin, autoComplete }) => {
+const TextFieldComponent = ({ label, id, className, inputProps, placeholder, type, fullWidth, size, margin, autoComplete,onChange }) => {
   return (
     <>
       <TextField
@@ -15,6 +15,7 @@ const TextFieldComponent = ({ label, id, className, inputProps, placeholder, typ
         size={size}
         margin={margin}
         autoComplete={autoComplete}
+        onChange={onChange}
       />
     </>
   );
