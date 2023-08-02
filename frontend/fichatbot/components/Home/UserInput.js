@@ -23,12 +23,14 @@ const UserInput = ({ chatArray, setChatArray }) => {
                     <OutlinedInput
                         placeholder='Enter text here'
                         value={userInput}
-                    onChange={(e) => {setUserInput(e.target.value)}}
+                        onChange={(e) => { setUserInput(e.target.value) }}
                         fullWidth
+                        style={{ "height": "100px" }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton type='submit'><SendIcon /></IconButton>
-                            </InputAdornment>}
+                            </InputAdornment>
+                        }
                     />
                 </form>
             </div>
