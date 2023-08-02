@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from '../../styles/Home/Sidebar.module.css'
 import Image from 'next/image'
-import Github from '../../icons/github.svg'
-import Bot from '../../icons/bot.svg'
-import Add from '../../icons/add.svg'
+import Github from '../../public/icons/github.svg'
+import Bot from '../../public/icons/bot.svg'
+import Add from '../../public/icons/add.svg'
 
 const Sidebar = () => {
   return (
