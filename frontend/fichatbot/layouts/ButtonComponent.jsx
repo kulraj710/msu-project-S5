@@ -13,6 +13,7 @@ const ButtonComponent = ({
   disableFocusRipple,
   bgColor,
   textColor,
+  disabled,
 }) => {
   return (
     <Button
@@ -28,6 +29,7 @@ const ButtonComponent = ({
         backgroundColor: bgColor,
         color: textColor,
       }}
+      disabled={disabled}
     >
       {children}
     </Button>
