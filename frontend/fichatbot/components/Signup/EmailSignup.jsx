@@ -10,8 +10,6 @@ const EmailSignup = ({values,setErrorMsg,submitButtonDisabled,setSubmitButtonDis
   const router = useRouter()
   const [signUser, setSignUser] = React.useState(null)
 
-  const router = useRouter()
-
   const SignUpHandler = () => {
     if (!values.name || !values.email || !values.pass || !values.c_pass) {
       setErrorMsg("fill all the fields");
