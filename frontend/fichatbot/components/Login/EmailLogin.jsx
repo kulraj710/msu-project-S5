@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import ButtonComponent from '../../layouts/ButtonComponent';
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase';
 import { User } from '../../Context/UserContext';
 
@@ -11,10 +12,14 @@ const EmailLogin = ({ values, setErrorMsg, submitButtonDisabled, setSubmitButton
   const loginHandler = async () => {
     if (!values.email || !values.pass) {
       setErrorMsg("fill all the fields");
+    if (!values.email || !values.pass) {
+      setErrorMsg("fill all the fields");
       return;
     }
     setErrorMsg("");
+    setErrorMsg("");
 
+    setSubmitButtonDisabled(true);
     setSubmitButtonDisabled(true);
 
     signInWithEmailAndPassword(auth, values.email, values.pass)
@@ -29,6 +34,7 @@ const EmailLogin = ({ values, setErrorMsg, submitButtonDisabled, setSubmitButton
       })
 
   }
+
   return (
     <>
       <ButtonComponent
