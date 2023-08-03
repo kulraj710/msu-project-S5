@@ -1,0 +1,20 @@
+.navbar {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100vw - var(--width-sidebar));
+    /* background-color: #1d93ab; */
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.navbar div ul {
+    display: flex;
+}
+
+.navbar div>h1 {
+    margin-left: 1.3rem;
+    font-weight: 610;
+    
+}

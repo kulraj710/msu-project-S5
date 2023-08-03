@@ -1,8 +1,32 @@
-import Head from 'next/head'
-// import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Sidebar from "../components/Home/Sidebar";
+import ContentContainer from "../components/Home/ContentContainer";
+import React, { useContext, useEffect} from "react";
+import {auth} from '../firebase.js'
+import { onAuthStateChanged } from "firebase/auth";
+import { User } from "../Context/CurrentUserContext";
 
 export default function Home() {
+
+  const { setCurrentUser } = useContext(User);
+  
+  // fatches value for current User
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const displayName = user.displayName;
+        const email = user.email;
+        const uid = user.uid;
+        setCurrentUser({ name: displayName, email: email, uid: uid });
+      }
+      console.log("Running Effect from _app.js to fetch firebase login info");
+    });
+  }, []);
+
+  const styles = {
+    display: "flex",
+    width: "100%",
+  };
   return (
     <div>
       {/* for SEO */}
@@ -13,11 +37,17 @@ export default function Home() {
       </Head>
 
       <main>
-        <h2>This is the homepage for Financial AI chatbot</h2>
-        <p>Kuchh bhi</p>
+        <section style={styles}>
+          <div>
+            <Sidebar />
+          </div>
+          <div>
+            <ContentContainer />
+          </div>
+        </section>
       </main>
 
       <footer></footer>
     </div>
-  )
+  );
 }
