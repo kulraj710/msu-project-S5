@@ -18,7 +18,8 @@ const SignupSection = () => {
     c_pass: "",
 })
 
-  const [errorMsg,setErrorMsg]=useState("");
+  const [errorMsg,setErrorMsg]=useState("")
+
   const [submitButtonDisabled,setSubmitButtonDisabled] = useState(false);
   return (
     <div>
@@ -53,7 +54,7 @@ const SignupSection = () => {
           </div>
 
           <div id={styles.loginButton}>
-            <EmailSignup  values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
+            <EmailSignup  values={values} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
         </section>
 

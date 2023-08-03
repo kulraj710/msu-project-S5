@@ -2,8 +2,12 @@ import React from 'react';
 import ButtonComponent from '../../layouts/ButtonComponent';
 import {createUserWithEmailAndPassword,updateProfile} from 'firebase/auth'
 import { auth } from '../../firebase';
+import { useRouter } from 'next/router';
 
-const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmitButtonDisabled}) => {
+
+const EmailSignup = ({values,setErrorMsg,submitButtonDisabled,setSubmitButtonDisabled}) => {
+
+  const router = useRouter()
   const [signUser, setSignUser] = React.useState(null)
 
   const SignUpHandler = () => {
@@ -16,12 +20,11 @@ const EmailSignup = ({values,setValues,setErrorMsg,submitButtonDisabled,setSubmi
   setSubmitButtonDisabled(true);
   createUserWithEmailAndPassword(auth,values.email,values.pass).then(async (res)=>{
     const user=res.user 
-    console.log(user)
     setSignUser(user.uid)
     await updateProfile(user,{
       displayName:values.name,
     })
-    
+    router.push('/')
     setSubmitButtonDisabled(false);
   }).catch((err)=>{
     setSubmitButtonDisabled(false)

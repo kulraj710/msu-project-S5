@@ -13,7 +13,8 @@ import { useRouter } from 'next/router';
 
 const LoginSection = () => {
 
-  const router = useRouter()
+  // const router = useRouter()
+  
 
   const [values,setValues] = useState({
     email: "",
@@ -21,10 +22,10 @@ const LoginSection = () => {
     c_pass: "",
 })
 
-const [user, setUser] = useState([])
+  const [ errorMsg , setErrorMsg ] = useState("");
 
-  const [errorMsg,setErrorMsg]=useState("");
-  const [submitButtonDisabled,setSubmitButtonDisabled] = useState(false)
+  const [ submitButtonDisabled , setSubmitButtonDisabled ] = useState(false)
+
   return (
     <div>
       <main className={styles.container}>
@@ -34,10 +35,6 @@ const [user, setUser] = useState([])
           </div>
 
 
-{/* temp code, remove later */}
-<div>User id : {user[0]}</div>
-<div>Name : {user[1]}</div>
-<div>Email : {user[2]}</div>
           <div id={styles.welcome}>
             <h1>Login</h1>
           </div>
@@ -64,7 +61,7 @@ const [user, setUser] = useState([])
           </div>
 
           <div id={styles.loginButton}>
-            <EmailLogin user={user} setUser={setUser}  values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
+            <EmailLogin values={values} setValues={setValues} errorMsg={errorMsg} setErrorMsg={setErrorMsg} setSubmitButtonDisabled={setSubmitButtonDisabled} submitButtonDisabled={submitButtonDisabled}/>
           </div>
         </section>
 
