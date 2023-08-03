@@ -4,7 +4,6 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase';
 import { useRouter } from 'next/router';
 
-
 const EmailSignup = ({values,setErrorMsg,submitButtonDisabled,setSubmitButtonDisabled}) => {
 
   const router = useRouter()

@@ -1,11 +1,11 @@
 import React from 'react'
 import '../styles/globals.css'
-import UserContext from '../Context/UserContext'
+import UserContext from '../Context/CurrentUserContext'
 
 
 function MyApp({ Component, pageProps }) {
 
-
+  
   return (
   <>
     <UserContext>

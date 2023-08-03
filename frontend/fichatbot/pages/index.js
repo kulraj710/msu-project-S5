@@ -4,12 +4,12 @@ import ContentContainer from "../components/Home/ContentContainer";
 import React, { useContext, useEffect} from "react";
 import {auth} from '../firebase.js'
 import { onAuthStateChanged } from "firebase/auth";
-import { User } from "../Context/UserContext";
+import { User } from "../Context/CurrentUserContext";
 
 export default function Home() {
 
-  const { currentUser, setCurrentUser } = useContext(User);
-
+  const { setCurrentUser } = useContext(User);
+  
   // fatches value for current User
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

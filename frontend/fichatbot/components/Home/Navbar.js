@@ -3,11 +3,14 @@ import styles from "../../styles/Home/Navbar.module.css"
 import { auth } from "../../firebase.js"
 import Avatar from '@mui/material/Avatar'
 import { signOut } from "firebase/auth"
-import { User } from '../../Context/UserContext'
+import { User } from '../../Context/CurrentUserContext'
 import Loader from '../../Layouts/Loader'
+import ButtonSecondary from '../../Layouts/ButtonSecondary'
+import {useRouter} from 'next/router'
 
 const Navbar = () => {
 
+  const router = useRouter()
   const {currentUser, setCurrentUser} = useContext(User)
 
 
@@ -27,13 +30,14 @@ const Navbar = () => {
       <div><h1>New Conversion</h1></div>
       <div>
         <ul>
-          {/* <li id='btn1'><p>{(currentUser) ? currentUser.email : "You are not signed in!"}</p></li> */}
-          <li id='btn1'>{(currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{currentUser.name[0]}</Avatar> : null}</li>
-          <li id='btn2'>
-            {(currentUser) ? <ButtonSecondary label={"Logout"} onClick={logoutHandler} /> : <ButtonSecondary label={"Login"} onClick={() => router.push("/login")} />}
+      
+          <li id='btn1'>{
+            (currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{currentUser.name[0]}</Avatar> : null}
           </li>
-          <li id='btn1'>{(currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{currentUser.name[0]}</Avatar> : <Loader size={35}/>}</li>
-          <li id='btn2'><button onClick={logoutHandler}>Logout</button></li>
+          <li id='btn2'>
+            {(currentUser ) ? <ButtonSecondary label={"Logout"} onClick={logoutHandler} /> : <ButtonSecondary label={"Login"} onClick={() => router.push("/login")}/> }
+          </li>
+
         </ul>
       </div>
     </nav>
