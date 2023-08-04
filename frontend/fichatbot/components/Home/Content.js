@@ -1,20 +1,11 @@
 import React from 'react'
 import ChatContainer from './ChatContainer';
 
-const Content = ({chatArray}) => {
-  
-  const [hydrated, setHydrated] = React.useState(false);
-  React.useEffect(() => {
-      setHydrated(true);
-  }, []);
-  if (!hydrated) {
-      return null;
-  }
-
+const Content = () => {
 
   return (
       <div>
-        <ChatContainer chatArray={chatArray}/>
+        <ChatContainer/>
       </div>
   )
 }

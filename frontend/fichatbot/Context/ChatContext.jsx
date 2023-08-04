@@ -2,17 +2,16 @@
 'use client'
 import React, { createContext, useState } from 'react';
 
-export const User = createContext(null)
+export const Chat = createContext(null)
 
 function ChatContext({ children }) {
-    // const [currentUser, setCurrentUser] = useState(null)
-    // const [iaAuthLoaded, setIsAuthLoaded] = useState(false)
-    // const CachedObj = useMemo(() => ({currentUser, setCurrentUser}), []); // value is cached by useMemo
-    
+
+  const [chatArray, setChatArray] = useState([])
+
     return (
-      <User.Provider>
+      <Chat.Provider value={{chatArray, setChatArray}}>
         {children}
-      </User.Provider>
+      </Chat.Provider>
     );
   }
 

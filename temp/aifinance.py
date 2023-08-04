@@ -116,7 +116,7 @@ def plot_chart():
 
 def bye():
     print("BYE")
-    return [{'share' : 'apple', 'num' : '6'}]
+    return "BYE BYE"
 
 
 # Mapping of the intents from the .json file to train the AI chatbot to recognize patterns of speech and requests
@@ -142,26 +142,29 @@ assistant_AI.load_model(model_name="kulraj")
 
 
 
-# from flask import Flask, jsonify, request
-# from flask_restful import Resource, Api
+from flask import Flask, jsonify, request
+from flask_restful import Resource, Api
+from flask_cors import CORS
 
-# app = Flask(__name__)
+app = Flask(__name__)
 
-# api = Api(app)
+api = Api(app)
 
-# class Chat(Resource):
-#     def post(self):
-#         message = request.get_json()['req']
-#         res = assistant_AI.request(message)  # Ask something to the assistant
-#         print(res)
-#         return jsonify({'res' : res})
+cors = CORS(app, origins='*')
 
-# api.add_resource(Chat, '/chat')ulc/chat
+class Chat(Resource):
+    def post(self):
+        message = request.get_json()['req']
+        res = assistant_AI.request(message)  # Ask something to the assistant
+        print(res)
+        return jsonify({'res' : res})
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+api.add_resource(Chat, '/chat')
+
+if __name__ == '__main__':
+    app.run(debug=True)
         
-while True:
-    message = input("Enter : ")
-    res = assistant_AI.request(message)  # Ask something to the assistant
-    print(res)
+# while True:
+#     message = input("Enter : ")
+#     res = assistant_AI.request(message)  # Ask something to the assistant
+#     print(res)

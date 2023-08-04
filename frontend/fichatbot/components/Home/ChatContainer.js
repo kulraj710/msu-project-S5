@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styles from '../../styles/Home/ChatContainer.module.css'
 import Chatbox from './Chatbox'
 import { formatDate } from '../../Helper/formatDate'
+import { Chat } from '../../Context/ChatContext';
 
-const ChatContainer = ({chatArray}) => {
+const ChatContainer = () => {
+
+  const {chatArray} = useContext(Chat)
+  
   return (
     <div className={styles.ChatContainer}>
       <div className={styles.messageList}>

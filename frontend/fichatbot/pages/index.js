@@ -2,26 +2,15 @@ import Head from "next/head";
 import Sidebar from "../components/Home/Sidebar";
 import ContentContainer from "../components/Home/ContentContainer";
 import React, { useContext, useEffect} from "react";
-import {auth} from '../firebase.js'
-import { onAuthStateChanged } from "firebase/auth";
-import { User } from "../Context/CurrentUserContext";
+// import {auth} from '../firebase.js'
+// import { onAuthStateChanged } from "firebase/auth";
+// import { User } from "../pages/_app";
 
 export default function Home() {
 
-  const { setCurrentUser } = useContext(User);
-  
-  // fatches value for current User
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const displayName = user.displayName;
-        const email = user.email;
-        const uid = user.uid;
-        setCurrentUser({ name: displayName, email: email, uid: uid });
-      }
-      console.log("Running Effect from _app.js to fetch firebase login info");
-    });
-  }, []);
+  // console.log("Comoing from nindex", currentUser)
+  // const {currentUser, setCurrentUser} = useContext(User)
+
 
   const styles = {
     display: "flex",

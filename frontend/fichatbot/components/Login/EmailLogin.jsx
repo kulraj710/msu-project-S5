@@ -2,13 +2,12 @@ import React, {useContext} from 'react';
 import ButtonComponent from '../../layouts/ButtonComponent';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase';
-import { User } from '../../Context/CurrentUserContext';
+// import { User } from '../../pages/_app';
 import {useRouter} from "next/router"
 
 const EmailLogin = ({ values, setErrorMsg, submitButtonDisabled, setSubmitButtonDisabled, }) => {
 
   const router = useRouter()
-  const {setCurrentUser} = useContext(User)
 
   const loginHandler = async () => {
     if (!values.email || !values.pass) {
@@ -22,7 +21,7 @@ const EmailLogin = ({ values, setErrorMsg, submitButtonDisabled, setSubmitButton
     signInWithEmailAndPassword(auth, values.email, values.pass)
       .then((res) => {
         setSubmitButtonDisabled(false);
-        setCurrentUser({"uid" : res.user.uid, "name" : res.user.displayName, "email" : res.user.email})
+        // setCurrentUser({"uid" : res.user.uid, "name" : res.user.displayName, "email" : res.user.email})
         router.push("/")
       })
       .catch((err) => {

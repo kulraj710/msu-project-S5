@@ -1,20 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useContext  } from 'react'
 import IconButton from "@mui/material/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import styles from "../../styles/Home/Input.module.css"
 // import Divider from '@mui/material/Divider';
+import { Chat } from '../../Context/ChatContext';
+import {postData} from "../../Helper/api"
 
-const UserInput = ({ chatArray, setChatArray }) => {
+const UserInput = () => {
 
+    const localhost = false
+    const { setChatArray } = useContext(Chat)
     const [userInput, setUserInput] = useState("")
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
-        setChatArray([...chatArray, { id: 2, message: userInput, time: new Date(), sender: 0 }])
+        setChatArray((prev) => [...prev, { id: Math.floor(Math.random() * 100), message: userInput, time: new Date(), sender: 0 }])
         setUserInput("")
+
+        if (localhost) {
+            const r = postData("http://127.0.0.1:5000/chat", {"req" : userInput})
+        r.then(res => {
+            console.log(res)
+            setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
+        })
+        .catch((err) => {
+            alert('Error', err)
+        })
+        }
+
     }
+
 
     return (
         <div className={styles.container}>

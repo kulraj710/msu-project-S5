@@ -1,5 +1,12 @@
 import {format} from "date-fns"
 
 export const formatDate = (date) => {
-    return format(date , "hh:mm aa")
+    try{
+        return format(date , "hh:mm aa")
+    }
+    catch (e){
+        if (e instanceof RangeError){
+            return "Invalid date"
+        }
+    }
 }

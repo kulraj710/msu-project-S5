@@ -3,23 +3,24 @@ import styles from "../../styles/Home/Navbar.module.css"
 import { auth } from "../../firebase.js"
 import Avatar from '@mui/material/Avatar'
 import { signOut } from "firebase/auth"
-import { User } from '../../Context/CurrentUserContext'
-import Loader from '../../Layouts/Loader'
+import { User } from '../../pages/_app'
 import ButtonSecondary from '../../Layouts/ButtonSecondary'
 import {useRouter} from 'next/router'
 
 const Navbar = () => {
 
+ 
   const router = useRouter()
-  const {currentUser, setCurrentUser} = useContext(User)
-
+  const {currentUser} = useContext(User)
+  
+  console.log("I am rendering... Navbar")
 
 
 
   const logoutHandler = () => {
     signOut(auth).then(() => {
       console.log("LOGGED OUT")
-      setCurrentUser(null)
+      router.push('/login')
     }).catch((error) => {
       alert("Something went wrong while logging out! Please refresh the page and try again!")
     })
