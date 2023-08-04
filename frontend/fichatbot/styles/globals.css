@@ -27,3 +27,17 @@ li {
   --white: #ffffff;
   --width-sidebar : 310px
 }
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: darkgrey;
+}
