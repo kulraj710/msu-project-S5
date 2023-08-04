@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import ButtonComponent from '../../layouts/ButtonComponent';
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase';
-// import { User } from '../../pages/_app';
 import {useRouter} from "next/router"
 
 const EmailLogin = ({ values, setErrorMsg, submitButtonDisabled, setSubmitButtonDisabled, }) => {
@@ -21,7 +20,6 @@ const EmailLogin = ({ values, setErrorMsg, submitButtonDisabled, setSubmitButton
     signInWithEmailAndPassword(auth, values.email, values.pass)
       .then((res) => {
         setSubmitButtonDisabled(false);
-        // setCurrentUser({"uid" : res.user.uid, "name" : res.user.displayName, "email" : res.user.email})
         router.push("/")
       })
       .catch((err) => {
