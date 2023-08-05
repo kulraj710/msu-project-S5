@@ -8,7 +8,7 @@ const Content = () => {
         setHydrated(true);
     }, []);
     if (!hydrated) {
-        return null;
+        return null
     }
 
   return (

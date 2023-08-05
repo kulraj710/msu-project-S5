@@ -10,7 +10,7 @@ import {postData} from "../../Helper/api"
 
 const UserInput = () => {
 
-    const localhost = false
+    const localhost = true
     const { setChatArray } = useContext(Chat)
     const [userInput, setUserInput] = useState("")
 

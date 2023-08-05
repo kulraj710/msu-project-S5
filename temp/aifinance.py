@@ -116,7 +116,7 @@ def plot_chart():
 
 def bye():
     print("BYE")
-    return "BYE BYE"
+
 
 
 # Mapping of the intents from the .json file to train the AI chatbot to recognize patterns of speech and requests
