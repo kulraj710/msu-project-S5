@@ -37,7 +37,6 @@ const ContentContainer = () => {
             <div>
                 <UserInput/>
             </div>
-
         </div>
     )
 }

@@ -16,5 +16,14 @@
 .navbar div>h1 {
     margin-left: 1.3rem;
     font-weight: 610;
-    
+}
+
+.MenuIcon {
+    display: flex;
+}
+
+@media screen and (max-width : 768px) {
+    .navbar {
+        width: 100vw;
+    }
 }

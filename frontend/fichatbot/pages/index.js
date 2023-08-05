@@ -1,16 +1,10 @@
 import Head from "next/head";
 import Sidebar from "../components/Home/Sidebar";
 import ContentContainer from "../components/Home/ContentContainer";
-import React, { useContext, useEffect} from "react";
-// import {auth} from '../firebase.js'
-// import { onAuthStateChanged } from "firebase/auth";
-// import { User } from "../pages/_app";
+import React, { useState } from "react";
+
 
 export default function Home() {
-
-  // console.log("Comoing from nindex", currentUser)
-  // const {currentUser, setCurrentUser} = useContext(User)
-
 
   const styles = {
     display: "flex",

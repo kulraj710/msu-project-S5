@@ -1,5 +1,5 @@
 .container {
-    background-color: #E7F8FF;
+    background-color: var(--primary);
     height: 100vh !important;
     width: var(--width-sidebar);
     padding: 1rem 0 1rem 0;
@@ -94,10 +94,33 @@
     color: #4f4f4f;
 }
 
+.newButton:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
 .section2Container {
     overflow-y: auto !important;
     height: 75%;
     padding: 1rem 1.5rem;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+}
+
+.addConv {
+    display: flex;
+    cursor: pointer !important;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width : 768px) {
+    .container {
+        position: absolute;
+        left: var(--width-sidebar-negative);
+    }
+
+    .section3 {
+        left: var(--width-sidebapr-negative);
+    }
 }

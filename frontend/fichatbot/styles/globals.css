@@ -2,7 +2,7 @@ html,
 body {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  
+
   overflow: hidden;
 }
 
@@ -25,9 +25,10 @@ li {
 :root {
   --hover: #1d93ab;
   --white: #ffffff;
-  --width-sidebar : 310px
+  --width-sidebar: 310px;
+  --width-sidebar-negative: -310px;
+  --primary: #E7F8FF;
 }
-
 
 ::-webkit-scrollbar {
   width: 6px;

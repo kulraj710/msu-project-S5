@@ -1,9 +1,9 @@
-import React, {useState, useEffect, createContext} from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 import '../styles/globals.css'
-import UserContext from '../Context/CurrentUserContext'
 import ChatContext from '../Context/ChatContext'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+import MenuStylesContext from '../Context/MenuStylesContext';
 
 export const User = createContext(null)
 
@@ -19,31 +19,33 @@ function MyApp({ Component, pageProps }) {
         const uid = user.uid;
         setCurrentUser({ name: displayName, email: email, uid: uid });
       }
-    else{
-      setCurrentUser(null)
-    }
-    console.log("USE effect from _app.js ");
-  })
+      else {
+        setCurrentUser(null)
+      }
+      console.log("USE effect from _app.js ");
+    })
   }, [])
-  
-    function UserContext({ children }) {
-      return (
-        <User.Provider value={{currentUser, setCurrentUser}}>
-          {children}
-        </User.Provider>
-      )
-    }
-  
+
+  function UserContext({ children }) {
+    return (
+      <User.Provider value={{ currentUser, setCurrentUser }}>
+        {children}
+      </User.Provider>
+    )
+  }
+
   console.log(currentUser)
-  
+
   return (
-  <>
-    <UserContext>
-      <ChatContext>
-       {(currentUser === 0) ? "Loading..." :  <Component {...pageProps}/>  }
-      </ChatContext>
-    </UserContext>
-  </>
+    <>
+      <UserContext>
+        <MenuStylesContext>
+          <ChatContext>
+            {(currentUser === 0) ? "Loading..." : <Component {...pageProps} />}
+          </ChatContext>
+        </MenuStylesContext>
+      </UserContext>
+    </>
   )
 }
 
