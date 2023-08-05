@@ -3,7 +3,7 @@
     height: 100vh !important;
     width: var(--width-sidebar);
     padding: 1rem 0 1rem 0;
-    /* margin: 0 auto; */
+    transition: width 0.3s ease;
 }
 
 .section1 {
@@ -114,13 +114,3 @@
     justify-content: center;
 }
 
-@media screen and (max-width : 768px) {
-    .container {
-        position: absolute;
-        left: var(--width-sidebar-negative);
-    }
-
-    .section3 {
-        left: var(--width-sidebapr-negative);
-    }
-}

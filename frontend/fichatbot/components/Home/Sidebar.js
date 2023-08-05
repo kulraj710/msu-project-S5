@@ -4,26 +4,25 @@ import Image from 'next/image'
 import Github from '../../public/icons/github.svg'
 import Add from '../../public/icons/add.svg'
 import Logo from "../../public/full-logo.svg";
-import { MenuStyles } from '../../Context/MenuStylesContext.js'
+import { MenuStyles } from '../../Context/MenuStylesContext.jsx'
 
 const Sidebar = () => {
 
   const [addConversation, setAddConversation] = useState([0])
 
-  const { menuStyles } = useContext(MenuStyles)
+  const { width768, showSidebar } = useContext(MenuStyles)
 
   const handleNewConversation = () => {
     setAddConversation((prev) => [...prev, Math.floor(Math.random() * 100)])
   }
 
-  const containerStyles = {
-    "position": (!menuStyles) ? "static" : "absolute",
-    "left": (menuStyles) ? null : "-310px",
-    "transition": "position 1s ease"
+  const showMenuStyles = {
+    "display": (!width768 && showSidebar) ? "none" : "block",
+    // "position" : (!showSidebar) ? "absolute" : "static",
   }
 
   return (
-    <div className={styles.container} style={containerStyles}>
+    <div className={styles.container} style={showMenuStyles}>
       <section className={styles.section1}>
         <div className={styles.headcontainer}>
           <div className={styles.heading1}>Finance AI chat</div>
@@ -48,7 +47,7 @@ const Sidebar = () => {
       </section>
 
 
-      <section className={styles.section3} style={{ "left": (menuStyles) ? null : "-310px" }}>
+      <section className={styles.section3} style={showMenuStyles}>
         <div className={styles.bottomFlexContainer}>
           <div>
             <Image alt='Bot' src={Logo} width={30} height={30} className={styles.bottomImage1} />
