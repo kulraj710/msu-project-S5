@@ -1,42 +1,62 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import styles from '../../styles/Home/Sidebar.module.css'
 import Image from 'next/image'
 import Github from '../../public/icons/github.svg'
 import Add from '../../public/icons/add.svg'
 import Logo from "../../public/full-logo.svg";
+import { MenuStyles } from '../../Context/MenuStylesContext.jsx'
 
 const Sidebar = () => {
+
+  const [addConversation, setAddConversation] = useState([0])
+
+  const { width768, showSidebar } = useContext(MenuStyles)
+
+  const handleNewConversation = () => {
+    setAddConversation((prev) => [...prev, Math.floor(Math.random() * 100)])
+  }
+
+  const showMenuStyles = {
+    "display": (!width768 && showSidebar) ? "none" : "block",
+    // "position" : (!showSidebar) ? "absolute" : "static",
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={showMenuStyles}>
       <section className={styles.section1}>
         <div className={styles.headcontainer}>
           <div className={styles.heading1}>Finance AI chat</div>
           <div className={styles.supportingText}>Ask your finance questions</div>
         </div>
 
-      <div className={styles.logo}>
-      <Image src={Logo} width={50} height={50}/>
-      </div>
-      </section>
-
-      <section className={styles.section2}>
-        <div>
-          <h5>New Conversation</h5>
-          <span>2 messages</span>
+        <div className={styles.logo}>
+          <Image src={Logo} width={50} height={50} alt="logo-icon"/>
         </div>
       </section>
 
-      <section className={styles.section3}>
+      <section className={styles.section2Container}>
+        {
+          addConversation.map((each => (
+            <div className={styles.section2} key={each}>
+              <div>
+                <h5>New Conversation</h5>
+                <span>2 messages</span>
+              </div>
+            </div>)))
+        }
+      </section>
+
+
+      <section className={styles.section3} style={showMenuStyles}>
         <div className={styles.bottomFlexContainer}>
           <div>
-          <Image alt='Bot' src={Logo} width={30} height={30} className={styles.bottomImage1}/>
-          <Image alt='github logo' src={Github} width={25} height={25}/>
+            <Image alt='Bot' src={Logo} width={30} height={30} className={styles.bottomImage1} />
+            <Image alt='github logo' src={Github} width={25} height={25} />
           </div>
-        <div>
-          <button className={styles.newButton}>
-          <Image alt='logo' src={Add} width={20} height={20} className={styles.bottomImage1}/>
-
-            <span>New Chat</span>
+          <div>
+            <button className={styles.newButton} onClick={handleNewConversation}>
+              <Image alt='logo' src={Add} width={20} height={20} className={styles.bottomImage1} />
+              <span>New Chat</span>
             </button>
           </div>
         </div>

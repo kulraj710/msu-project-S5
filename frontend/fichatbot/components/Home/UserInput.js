@@ -1,12 +1,11 @@
-import React, { useState, useContext  } from 'react'
+import React, { useState, useContext } from 'react'
 import IconButton from "@mui/material/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import styles from "../../styles/Home/Input.module.css"
-// import Divider from '@mui/material/Divider';
 import { Chat } from '../../Context/ChatContext';
-import {postData} from "../../Helper/api"
+import { postData } from "../../Helper/api"
 
 const UserInput = () => {
 
@@ -20,16 +19,14 @@ const UserInput = () => {
         setUserInput("")
 
         if (localhost) {
-            const r = postData("http://127.0.0.1:5000/chat", {"req" : userInput})
-        r.then(res => {
-            console.log(res)
-            setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
-        })
-        .catch((err) => {
-            alert('Error', err)
-        })
+            const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
+            r.then(res => {
+                console.log(res)
+                setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
+            }).catch((err) => {
+                alert('Error', err)
+            })
         }
-
     }
 
 
@@ -42,7 +39,7 @@ const UserInput = () => {
                         value={userInput}
                         onChange={(e) => { setUserInput(e.target.value) }}
                         fullWidth
-                        style={{ "height": "100px" }}
+                        style={{ boxShadow: "0px 0px 1px 0px rgba(194,194,194,1)" }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton type='submit'><SendIcon /></IconButton>
@@ -56,4 +53,3 @@ const UserInput = () => {
 }
 
 export default UserInput
-

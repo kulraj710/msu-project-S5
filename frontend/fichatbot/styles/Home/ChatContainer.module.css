@@ -12,14 +12,14 @@
     width: 100%;
 }
 
-
 .message {
-    max-width: 30%;
+    max-width: 320px;
+    min-width: 100px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 15px;
     margin-top: 10px;
-        /* set margin-left, background-color property here in the javascript to place element to the right */
+    /* set margin-left, background-color property here in the javascript to place element to the right */
 }
 
 .message>p {
@@ -29,4 +29,5 @@
 .time {
     font-size: 10px;
     color: gray;
+    float: right;
 }
