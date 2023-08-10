@@ -8,7 +8,7 @@ import yfinance as yf
 import pickle
 import sys
 import datetime as dt
-
+import json
 # portfolio = {'AAPL' : 5, 'TSLA' : 20, 'GS': 12}
 
 portfolio = {}
@@ -117,7 +117,7 @@ def portfolio_gains():
 def plot_chart():
     # ticker = input("Choose a ticker symbol: ")
     # ticker = "HDFC.NS"
-    ticker = "AAPL"
+    ticker = "AWL.NS"
     stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
     # start_string = input("Choose a starting date (YYYY-): ")
 
@@ -131,8 +131,8 @@ def plot_chart():
     # Up = Green, Down = Red
     # mpf_style = mpf.make_mpf_style(base_mpf_style='mike', marketcolors=colors)
     # mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
-    print(stock_data)
-    return stock_data.to_json()
+    # print(stock_data)
+    return stock_data.to_dict(orient="records")
     
 def bye():
     print("BYE")

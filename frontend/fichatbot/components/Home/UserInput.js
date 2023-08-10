@@ -9,7 +9,7 @@ import { postData } from "../../Helper/api"
 
 const UserInput = () => {
 
-    const localhost = false
+    const localhost = true
     const { setChatArray } = useContext(Chat)
     const [userInput, setUserInput] = useState("")
 
@@ -22,9 +22,10 @@ const UserInput = () => {
             const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
             r.then(res => {
                 console.log(res)
-                setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
+                // setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
             }).catch((err) => {
                 alert('Error', err)
+                console.log(err)
             })
         }
     }
