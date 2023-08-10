@@ -117,7 +117,7 @@ def portfolio_gains():
 def plot_chart():
     # ticker = input("Choose a ticker symbol: ")
     # ticker = "HDFC.NS"
-    ticker = "AWL.NS"
+    ticker = "JPPOWER.NS"
     stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
     # start_string = input("Choose a starting date (YYYY-): ")
 
