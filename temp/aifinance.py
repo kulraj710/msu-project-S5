@@ -97,7 +97,7 @@ def portfolio_gains():
 
 
 # Allows to plot a specific stock in a candle chart
-def plot_chart():
+# def plot_chart():
     ticker = input("Choose a ticker symbol: ")
     # start_string = input("Choose a starting date (YYYY-): ")
 
@@ -114,6 +114,26 @@ def plot_chart():
     mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
 
 
+def plot_chart():
+    # ticker = input("Choose a ticker symbol: ")
+    # ticker = "HDFC.NS"
+    ticker = "AAPL"
+    stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
+    # start_string = input("Choose a starting date (YYYY-): ")
+
+    # start_date = dt.datetime.strptime(start_string, "%d/%m/%Y")
+    # end_date = dt.datetime.now()
+    # stock_data = web.DataReader(ticker, 'yahoo', start_date, end_date)
+
+    # Visual set up for the candlestick chart (from mplfinance)
+    # plt.style.use('Solarize_Light2')
+    # colors = mpf.make_marketcolors(up='#00ff00', down='#ff0000', volume='in', wick='inherit', edge='inherit')
+    # Up = Green, Down = Red
+    # mpf_style = mpf.make_mpf_style(base_mpf_style='mike', marketcolors=colors)
+    # mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
+    print(stock_data)
+    return stock_data.to_json()
+    
 def bye():
     print("BYE")
     return "BYE BYE"
