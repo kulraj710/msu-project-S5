@@ -21,8 +21,13 @@ const UserInput = () => {
         if (localhost) {
             const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
             r.then(res => {
-                console.log(res)
-                // setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
+                console.log(res.res)
+                if (typeof (res.res) === typeof ({})) {
+                    setChatArray((prev) => [...prev, { id: Math.random() * 500, message: "Displaying chart", time: new Date(), sender: 1 }])
+                }
+                else {
+                    setChatArray((prev) => [...prev, { id: Math.random() * 500, message: res.res, time: new Date(), sender: 1 }])
+                }
             }).catch((err) => {
                 alert('Error', err)
                 console.log(err)

@@ -15,7 +15,6 @@ const ContentContainer = () => {
     const loginString = () => (<>You are not logged in please,  <Link href="/login" style={{"color" : "blue", textDecoration : "underline"}}>Login</Link></>)
     const welcomeString = (name) => (<>Welcome {name}, <br/> How can I help you?</>)
 
-
     useEffect(() => {
         if (currentUser !== null) {
             setChatArray([{id : 1, message : welcomeString(currentUser.name), sender : 1}])      
