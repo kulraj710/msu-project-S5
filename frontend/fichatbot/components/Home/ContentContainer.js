@@ -32,7 +32,7 @@ const ContentContainer = () => {
                 <Navbar />
             </div>
             <div className={styles.content}>
-                <Content />
+                {/* <Content /> */}
             </div>
             <div>
                 <UserInput/>

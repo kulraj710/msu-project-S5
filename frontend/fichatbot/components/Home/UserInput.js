@@ -36,7 +36,8 @@ const UserInput = () => {
             <div>
                 <form onSubmit={submitHandler}>
                     <OutlinedInput
-                        placeholder='Enter text here'
+                        disabled
+                        placeholder='input is disabled in Userinput.js:40'
                         value={userInput}
                         onChange={(e) => { setUserInput(e.target.value) }}
                         fullWidth

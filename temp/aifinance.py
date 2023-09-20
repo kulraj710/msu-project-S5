@@ -6,9 +6,8 @@ import pandas_datareader as web
 import mplfinance as mpf
 import yfinance as yf
 import pickle
-import sys
 import datetime as dt
-import json
+
 # portfolio = {'AAPL' : 5, 'TSLA' : 20, 'GS': 12}
 
 portfolio = {}
@@ -115,9 +114,9 @@ def portfolio_gains():
 
 
 def plot_chart():
-    # ticker = input("Choose a ticker symbol: ")
+    ticker = input("Choose a ticker symbol: ")
     # ticker = "HDFC.NS"
-    ticker = "AWL.NS"
+    # ticker = "AWL.NS"
     stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
     # start_string = input("Choose a starting date (YYYY-): ")
 
@@ -181,10 +180,10 @@ class Chat(Resource):
 
 api.add_resource(Chat, '/chat')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+    # app.run(debug=True)
         
-# while True:
-#     message = input("Enter : ")
-#     res = assistant_AI.request(message)  # Ask something to the assistant
-#     print(res)
+while True:
+    message = input("Enter : ")
+    res = assistant_AI.request(message)  # Ask something to the assistant
+    print(res)
