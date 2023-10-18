@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pandas_datareader as web
 import mplfinance as mpf
-
+import yfinance as yf
 import pickle
 import sys
 import datetime as dt
@@ -25,6 +25,18 @@ def plot_chart():
     mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
     
     
-a = plot_chart()
+    
+def plot_chart1():
+    msft = yf.Ticker("Reliance.NS")
+    
+    return msft.news
+
+def plot_chart2():
+    msft = yf.Ticker("Reliance.NS")
+    
+    return msft.balance_sheet
+
+a = plot_chart2()
+print(a)
 
 

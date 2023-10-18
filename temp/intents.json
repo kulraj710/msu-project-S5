@@ -13,6 +13,10 @@
       "patterns": ["plot a chart for me", "show a graph", "display a chart", "how is {share} peroforming?"],
       "responses": ["You own the following shares: ABBV, AAPL, FB, NVDA and an ETF of the S&P 500 Index!"],
       "context_set": ""
-    }
+    },
+    {"tag" : ["get_balance_sheet", ""],
+    "patterns" : ["what are [stock] balance sheet details?", "tell me about [stock] balance sheet", "[stock] balance sheet please", "what are [share] balance sheet details?", "tell me about [share] balance sheet", "[share] balance sheet please", "get me income statement of [share]", "what were income of [share]", "get me income statement of [stock]", "what were income of [stock]"]
+  
+  }
   ]
   }

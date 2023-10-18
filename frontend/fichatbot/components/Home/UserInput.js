@@ -18,7 +18,7 @@ const UserInput = () => {
     const router = useRouter()
     const { id } = router.query
 
-    const { setChatArray, chatArray } = useContext(Chat)
+    const { setChatArray } = useContext(Chat)
     const { currentUser } = useContext(User)
     
     const [userInput, setUserInput] = useState("")
@@ -51,10 +51,10 @@ const UserInput = () => {
                 
                 const backendOutputObject = { 
                     id: Math.random() * 500, 
-                    message: "Here you go,", 
+                    message: (res.res.response.length === [].length) ? "Sorry I do not have data for the mentioned stock or you did not mention any stock at all, please try again!" : "Here you go,", 
                     time: new Date(), 
                     sender: 1, 
-                    display : "Chart", 
+                    display : res.res.display, 
                     displayData : res.res.response 
                 }
 
@@ -63,6 +63,10 @@ const UserInput = () => {
                     
                     // update db
                     updateFirestoreDbArray(userInputObject, backendOutputObject)
+                }
+                
+                else if (res.res.display === "Sheet"){
+                    console.log(res.res.response)
                 }
                 else {
                     const backendOutputObject = { id: Math.random() * 500, message: res.res.response, time: new Date(), sender: 1, display : null }

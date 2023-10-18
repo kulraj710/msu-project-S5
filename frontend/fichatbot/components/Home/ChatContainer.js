@@ -42,7 +42,7 @@ const ChatContainer = () => {
             <Chatbox key={Math.random()} positionBit={chat.sender} message={chat.message} time={formatDate(chat.time)} />
             <div>
               {/* Rander chart here conditionaly - usestate typeof*/}
-              {(chat.display !== null && chat.display === "Chart") ? 
+              {(chat.display !== null && chat.display === "Chart" && chat.displayData.length !== [].length) ? 
               <>
               <ChartDisplay dataFromReact={chat.displayData}/>
               </>

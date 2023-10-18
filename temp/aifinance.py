@@ -7,6 +7,14 @@ import mplfinance as mpf
 import yfinance as yf
 import pickle
 import datetime as dt
+import os
+import json
+import openai
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+
+
+openai.api_key = "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"
+
 
 
 portfolio = {}
@@ -94,33 +102,43 @@ def portfolio_gains(uid):
         print("There wasn't any trading happening on this day !")
 
 
-# Allows to plot a specific stock in a candle chart
-# def plot_chart():
-    ticker = input("Choose a ticker symbol: ")
-    # start_string = input("Choose a starting date (YYYY-): ")
+def plot_chart(uid, message=None):
+    completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": """You will be provided with the sentence that will contain a name of a stock listed on National stock exchange India and a time period. You need to find the stock name and modify it into Yahoo Finance API ticker symbol and you need to extract the time period mentioned in the sentnece. At the end you can return it all in json format that contains keys 'stock', 'start_date', 'end_date'. if no stock or time can be found in the sentence just put "" as the value Make sure your json format is consistent each time"""},
+        {"role": "user", "content": message}
+    ]
+    )
+    a = completion.choices[0].message.content
 
-    # start_date = dt.datetime.strptime(start_string, "%d/%m/%Y")
-    # end_date = dt.datetime.now()
-    stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
-    # stock_data = web.DataReader(ticker, 'yahoo', start_date, end_date)
+    dictionary = json.loads(a)
 
-    # Visual set up for the candlestick chart (from mplfinance)
-    plt.style.available('light_background')
-    colors = mpf.make_marketcolors(up='#00ff00', down='#ff0000', volume='in', wick='inherit', edge='inherit')
-    # Up = Green, Down = Red
-    mpf_style = mpf.make_mpf_style(base_mpf_style='mike', marketcolors=colors)
-    mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
-
-
-def plot_chart(uid):
-    # ticker = input("Choose a ticker symbol: ")
-    # ticker = "HDFC.NS"
-    ticker = "RELIANCE.NS"
+    ticker = dictionary['stock']
+    print(ticker)
+    
     stock_data = yf.download(ticker, period="6mo", interval="1d")  # Replace with desired date range
-    # start_string = input("Choose a starting date (YYYY-): ")
-
     return stock_data.to_dict(orient="records")
     
+        
+    # start_string = input("Choose a starting date (YYYY-): ")
+
+# class TickerEncoder(json.JSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, yf.Ticker):
+#             return obj.info
+#         return super().default(obj)
+
+
+# Serialize the Ticker object to JSON
+
+    
+def get_balance_sheet(uid, message):
+    ticker = "ITC.NS"
+    data = yf.Ticker(ticker)
+    balance_sheet = data.balance_sheet
+
+    return balance_sheet.to_json(orient="split")
 
 
 
@@ -133,6 +151,7 @@ intents_mapping = {
     'portfolio_worth': portfolio_worth,
     'portfolio_gains': portfolio_gains,
     'user_help': user_help,
+    'get_balance_sheet' : get_balance_sheet
 }
 
 

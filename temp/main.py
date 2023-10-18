@@ -184,13 +184,32 @@ class GenericAssistant(IAssistant):
     def request_method(self, message):
         pass
 
+
+    
+
+
     def request(self, message, uid="NOT-LOGGED-IN"):
         ints = self._predict_class(message)
+        intents_display_data = {
+                'plot_chart': "Chart",
+                'add_portfolio': "",
+                'remove_portfolio': "",
+                'show_portfolio': "Portfolio",
+                'portfolio_worth': "",
+                'portfolio_gains': "",
+                'user_help': "",
+                'get_balance_sheet' : "Sheet"
+            }
+        display_type = ""
 
         if ints[0]['intent'] in self.intent_methods.keys():
-            # res_from_function = self.intent_methods[ints[0]['intent']](uid, message)
-            res_from_function = self.intent_methods[ints[0]['intent']](uid)
+            res_from_function = self.intent_methods[ints[0]['intent']](uid, message)
             
-            return {"intent" : ints[0]['intent'], "response" : self._get_response(res_from_function, self.intents, is_method_invocked=True), "display" : "Chart"}
+            if ints[0]['intent'] in intents_display_data:
+                display_type = intents_display_data[ints[0]['intent']]
+                print(display_type)
+                return {"intent" : ints[0]['intent'], "response" : self._get_response(res_from_function, self.intents, is_method_invocked=True), "display" : display_type}
+                
         else:
+            print("Hello")
             return {"intent" : ints[0]['intent'], "response" : self._get_response(ints, self.intents), "display" : None}
