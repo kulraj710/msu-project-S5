@@ -8,7 +8,6 @@ import yfinance as yf
 import pickle
 import datetime as dt
 
-# portfolio = {'AAPL' : 5, 'TSLA' : 20, 'GS': 12}
 
 portfolio = {}
 # with open('portfolio.pkl', 'wb') as f:
@@ -18,7 +17,7 @@ with open('portfolio.pkl', 'rb') as f:
     portfolio = pickle.load(f)
 
 # Saves any modification made to the portfolio
-def save_portfolio():
+def save_portfolio(uid):
     with open('portfolio.pkl', 'wb') as f:
         pickle.dump(portfolio, f)
 
@@ -32,9 +31,9 @@ def user_help():
           "6 - Chart the price evolution of a stock from a requested date up to today")
 
 # Add a firm's share into the user's portfolio
-def add_portfolio():
-    ticker = input("Which stock would you like to add to your portfolio ? : ")
-    nb_shares = input("How many shares would you like to buy ? : ")
+def add_portfolio(ticker, nb_shares, uid):
+    # ticker = input("Which stock would you like to add to your portfolio ? : ")
+    # nb_shares = input("How many shares would you like to buy ? : ")
 
     if ticker in portfolio.keys():
         portfolio[ticker] += int(nb_shares)
@@ -44,7 +43,7 @@ def add_portfolio():
 
 
 # Removes a share from the user's porfolio
-def remove_portfolio():
+def remove_portfolio(uid):
     ticker = input("Which stock would you like to sell from your portfolio ? : ")
     nb_shares = input("How many shares would you like to sell ? : ")
 
@@ -61,14 +60,14 @@ def remove_portfolio():
 
 
 # Show the number of shares in the user's porfolio
-def show_porfolio():
+def show_porfolio(uid):
     print("Your portfolio: ")
     for ticker in portfolio.keys():
         print(f"You own {portfolio[ticker]} shares of {ticker}")
 
 
 # Returns the value of the actual porfolio in USD
-def portfolio_worth():
+def portfolio_worth(uid):
     sum = 0
     for ticker in portfolio.keys():
         stock_data = web.DataReader(ticker, 'yahoo')
@@ -78,7 +77,7 @@ def portfolio_worth():
 
 
 # Showcase the gain of value of the porfolio stocks compared to the user inputted date
-def portfolio_gains():
+def portfolio_gains(uid):
     start_date = input("Enter the date you want to use for comparison (YYYY-MM-DD): ")
     sum_today = 0
     sum_start = 0
@@ -113,29 +112,16 @@ def portfolio_gains():
     mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
 
 
-def plot_chart():
-    ticker = input("Choose a ticker symbol: ")
+def plot_chart(uid):
+    # ticker = input("Choose a ticker symbol: ")
     # ticker = "HDFC.NS"
-    # ticker = "AWL.NS"
-    stock_data = yf.download(ticker, period="3mo", interval="1d")  # Replace with desired date range
+    ticker = "RELIANCE.NS"
+    stock_data = yf.download(ticker, period="6mo", interval="1d")  # Replace with desired date range
     # start_string = input("Choose a starting date (YYYY-): ")
 
-    # start_date = dt.datetime.strptime(start_string, "%d/%m/%Y")
-    # end_date = dt.datetime.now()
-    # stock_data = web.DataReader(ticker, 'yahoo', start_date, end_date)
-
-    # Visual set up for the candlestick chart (from mplfinance)
-    # plt.style.use('Solarize_Light2')
-    # colors = mpf.make_marketcolors(up='#00ff00', down='#ff0000', volume='in', wick='inherit', edge='inherit')
-    # Up = Green, Down = Red
-    # mpf_style = mpf.make_mpf_style(base_mpf_style='mike', marketcolors=colors)
-    # mpf.plot(stock_data, type='candle', style=mpf_style, volume=True)
-    # print(stock_data)
     return stock_data.to_dict(orient="records")
     
-def bye():
-    print("BYE")
-    return "BYE BYE"
+
 
 
 # Mapping of the intents from the .json file to train the AI chatbot to recognize patterns of speech and requests
@@ -146,7 +132,6 @@ intents_mapping = {
     'show_portfolio': show_porfolio,
     'portfolio_worth': portfolio_worth,
     'portfolio_gains': portfolio_gains,
-    'goodbye': bye,
     'user_help': user_help,
 }
 
@@ -174,16 +159,18 @@ cors = CORS(app, origins='*')
 class Chat(Resource):
     def post(self):
         message = request.get_json()['req']
+        logged_in_user_id = request.headers.get('uid')
         res = assistant_AI.request(message)  # Ask something to the assistant
         print(res)
         return jsonify({'res' : res})
 
+
 api.add_resource(Chat, '/chat')
 
-# if __name__ == '__main__':
-    # app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
         
-while True:
-    message = input("Enter : ")
-    res = assistant_AI.request(message)  # Ask something to the assistant
-    print(res)
+# while True:
+#     message = input("Enter : ")
+#     res = assistant_AI.request(message)  # Ask something to the assistant
+#     print(res)

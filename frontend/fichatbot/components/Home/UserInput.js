@@ -5,32 +5,75 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import styles from "../../styles/Home/Input.module.css"
 import { Chat } from '../../Context/ChatContext';
+import { User } from '../../pages/_app';
 import { postData } from "../../Helper/api"
+import { doc, arrayUnion, updateDoc } from "firebase/firestore"
+import {db} from "../../firebase"
+import { useRouter } from 'next/router';
 
 const UserInput = () => {
 
     const localhost = true
-    const { setChatArray } = useContext(Chat)
+
+    const router = useRouter()
+    const { id } = router.query
+
+    const { setChatArray, chatArray } = useContext(Chat)
+    const { currentUser } = useContext(User)
+    
     const [userInput, setUserInput] = useState("")
+
+    const updateFirestoreDbArray = async (userInput, backendOutput) => {
+        const docRef = doc(db, `chatHistory/${currentUser.uid}/chat`, id)
+        await updateDoc(docRef, {
+            chatArray : arrayUnion(userInput, backendOutput)
+        })
+    }
+
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        setChatArray((prev) => [...prev, { id: Math.floor(Math.random() * 100), message: userInput, time: new Date(), sender: 0 }])
+
+        const userInputObject = { 
+            id: Math.floor(Math.random() * 100), 
+            message: userInput, 
+            time: new Date(), 
+            sender: 0 
+        }
+
+        setChatArray((prev) => [...prev, userInputObject])
+
         setUserInput("")
 
         if (localhost) {
             const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
-            r.then(res => {
-                console.log(res.res)
-                if (typeof (res.res) === typeof ({})) {
-                    setChatArray((prev) => [...prev, { id: Math.random() * 500, message: "Displaying chart", time: new Date(), sender: 1 }])
+            r.then(async res => {
+                
+                const backendOutputObject = { 
+                    id: Math.random() * 500, 
+                    message: "Here you go,", 
+                    time: new Date(), 
+                    sender: 1, 
+                    display : "Chart", 
+                    displayData : res.res.response 
+                }
+
+                if (res.res.display === "Chart") {
+                    setChatArray((prev) => [...prev, backendOutputObject])
+                    
+                    // update db
+                    updateFirestoreDbArray(userInputObject, backendOutputObject)
                 }
                 else {
-                    setChatArray((prev) => [...prev, { id: Math.random() * 500, message: res.res, time: new Date(), sender: 1 }])
+                    const backendOutputObject = { id: Math.random() * 500, message: res.res.response, time: new Date(), sender: 1, display : null }
+                    setChatArray((prev) => [...prev, backendOutputObject])
+                    
+                    // update db
+                    updateFirestoreDbArray(userInputObject, backendOutputObject)
                 }
             }).catch((err) => {
                 alert('Error', err)
-                console.log(err)
+                console.error(err)
             })
         }
     }
@@ -41,8 +84,8 @@ const UserInput = () => {
             <div>
                 <form onSubmit={submitHandler}>
                     <OutlinedInput
-                        disabled
-                        placeholder='input is disabled in Userinput.js:40'
+                        // disabled
+                        placeholder='Enter your prompt...'
                         value={userInput}
                         onChange={(e) => { setUserInput(e.target.value) }}
                         fullWidth

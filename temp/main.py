@@ -69,9 +69,9 @@ class GenericAssistant(IAssistant):
             for pattern in intent['patterns']:
                 word = nltk.word_tokenize(pattern)
                 self.words.extend(word)
-                documents.append((word, intent['tag']))
-                if intent['tag'] not in self.classes:
-                    self.classes.append(intent['tag'])
+                documents.append((word, intent['tag'][0]))
+                if intent['tag'][0] not in self.classes:
+                    self.classes.append(intent['tag'][0])
 
         self.words = [self.lemmatizer.lemmatize(w.lower()) for w in self.words if w not in ignore_letters]
         self.words = sorted(list(set(self.words)))
@@ -168,7 +168,7 @@ class GenericAssistant(IAssistant):
                 tag = ints[0]['intent']
                 list_of_intents = intents_json['intents']
                 for i in list_of_intents:
-                    if i['tag']  == tag:
+                    if i['tag'][0]  == tag:
                         result = random.choice(i['responses'])
                         break
             except IndexError:
@@ -184,11 +184,13 @@ class GenericAssistant(IAssistant):
     def request_method(self, message):
         pass
 
-    def request(self, message):
+    def request(self, message, uid="NOT-LOGGED-IN"):
         ints = self._predict_class(message)
 
         if ints[0]['intent'] in self.intent_methods.keys():
-            res_from_function = self.intent_methods[ints[0]['intent']]()
-            return self._get_response(res_from_function, self.intents, is_method_invocked=True)
+            # res_from_function = self.intent_methods[ints[0]['intent']](uid, message)
+            res_from_function = self.intent_methods[ints[0]['intent']](uid)
+            
+            return {"intent" : ints[0]['intent'], "response" : self._get_response(res_from_function, self.intents, is_method_invocked=True), "display" : "Chart"}
         else:
-            return self._get_response(ints, self.intents)
+            return {"intent" : ints[0]['intent'], "response" : self._get_response(ints, self.intents), "display" : None}

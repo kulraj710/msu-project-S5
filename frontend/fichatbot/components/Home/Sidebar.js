@@ -1,19 +1,56 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styles from '../../styles/Home/Sidebar.module.css'
 import Image from 'next/image'
 import Github from '../../public/icons/github.svg'
 import Add from '../../public/icons/add.svg'
 import Logo from "../../public/full-logo.svg";
 import { MenuStyles } from '../../Context/MenuStylesContext.jsx'
+import SidebarConversationBox from './SidebarConversationBox'
+import { useRouter } from 'next/router';
+import { collection, addDoc, Timestamp, getDocs } from "firebase/firestore"; 
+import { db } from '../../firebase'
+import { ChatId } from '../../Context/CurrentChatId'
+import { User } from '../../pages/_app'
 
 const Sidebar = () => {
 
-  const [addConversation, setAddConversation] = useState([0])
+  const { setCurrentChatId } = useContext(ChatId)
+  const { currentUser } = useContext(User)
+
+  const router = useRouter()
+  const [addConversation, setAddConversation] = useState([])
+
+  useEffect(() => {
+    if (currentUser) {
+      
+    const collectionRef = collection(db, `chatHistory/${currentUser.uid}/chat`);
+
+    getDocs(collectionRef)
+      .then((querySnapshot) => {
+      let arr = []
+      querySnapshot.forEach((doc) => {
+      console.log('Document ID:', doc.id);
+        arr.push(doc.id)
+      // You can access other metadata like doc.ref, doc.createTime, etc.
+      });
+      setAddConversation(arr)
+  })
+  .catch((error) => {
+    console.error('Error getting documents:', error);
+  })
+    }
+  }, [])
+  
 
   const { width768, showSidebar } = useContext(MenuStyles)
 
-  const handleNewConversation = () => {
-    setAddConversation((prev) => [...prev, Math.floor(Math.random() * 100)])
+  const handleNewConversation = async () => {    
+    const newChatRef = await addDoc((collection(db, `chatHistory/${currentUser.uid}/chat`)), {
+          chatArray : [],
+          date : Timestamp.now()
+        })
+      setCurrentChatId(newChatRef.id)
+      router.push(`/?id=${newChatRef.id}`)
   }
 
   const showMenuStyles = {
@@ -37,12 +74,10 @@ const Sidebar = () => {
       <section className={styles.section2Container}>
         {
           addConversation.map((each => (
-            <div className={styles.section2} key={each}>
-              <div>
-                <h5>New Conversation</h5>
-                <span>2 messages</span>
-              </div>
-            </div>)))
+            <div key={each}>
+              <SidebarConversationBox style={styles.section2}  id={each}/>
+            </div>
+            )))
         }
       </section>
 

@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react';
 
 export const ChartCon = createContext(null)
 
-function ChatContext({ children }) {
+function ChartContext({ children }) {
 
     const [showChart, setShowChart] = useState(false)
 

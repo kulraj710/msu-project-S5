@@ -45,7 +45,7 @@ const Navbar = () => {
         <ul>
 
           <li id='btn1'>{
-            (currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{currentUser.name[0]}</Avatar> : null}
+            (currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{(!currentUser.name) ? "O" : currentUser.name[0]}</Avatar> : null}
           </li>
           <li id='btn2'>
             {(currentUser) ? <ButtonSecondary label={"Logout"} onClick={logoutHandler} /> : <ButtonSecondary label={"Login"} onClick={() => router.push("/login")} />}

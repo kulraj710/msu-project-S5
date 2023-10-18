@@ -49,11 +49,11 @@ function ChartComp() {
     const [dataFromReact, setData] = React.useState([{"Adj Close" : "0"}])
 
     function showChartHandler() {
-        const r = postData("http://127.0.0.1:5000/chat", { "req": "show me my shares" })
+        const r = postData("http://127.0.0.1:5000/chat", { "req": "display a chart for me" })
             r.then(res => {
                 // console.log(typeof(res.res))
-                console.log((res.res[3]))
-                setData(res.res)
+                console.log((res.res))
+                setData(res.res.response)
                 setShowChart(true)
                 // setChatArray((prev) => [...prev, { id: Math.random() * 10, message: res.res, time: new Date(), sender: 1 }])
             }).catch((err) => {

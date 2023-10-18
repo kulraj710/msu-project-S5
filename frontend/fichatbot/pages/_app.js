@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import MenuStylesContext from '../Context/MenuStylesContext';
 import ChartContext from '../Context/ChartContext';
+import CurrentChatIdContext from '../Context/CurrentChatId';
 
 export const User = createContext(null)
 
@@ -41,11 +42,13 @@ function MyApp({ Component, pageProps }) {
     <>
       <UserContext>
         <MenuStylesContext>
+          <CurrentChatIdContext>
           <ChatContext>
             <ChartContext>
               {(currentUser === 0) ? "Loading..." : <Component {...pageProps} />}
             </ChartContext>
           </ChatContext>
+          </CurrentChatIdContext>
         </MenuStylesContext>
       </UserContext>
     </>

@@ -12,8 +12,8 @@ const ContentContainer = () => {
     const {setChatArray} = useContext(Chat)
     const {currentUser} = useContext(User)
 
-    const loginString = () => (<>You are not logged in please,  <Link href="/login" style={{"color" : "blue", textDecoration : "underline"}}>Login</Link></>)
-    const welcomeString = (name) => (<>Welcome {name}, <br/> How can I help you?</>)
+    const loginString = () => ("You are not logged in please")
+    const welcomeString = (name) => (`Welcome ${name}, How can I help you?`)
 
     useEffect(() => {
         if (currentUser !== null) {
@@ -31,7 +31,7 @@ const ContentContainer = () => {
                 <Navbar />
             </div>
             <div className={styles.content}>
-                {/* <Content /> */}
+                <Content />
             </div>
             <div>
                 <UserInput/>
