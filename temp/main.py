@@ -198,7 +198,8 @@ class GenericAssistant(IAssistant):
                 'portfolio_worth': "",
                 'portfolio_gains': "",
                 'user_help': "",
-                'get_balance_sheet' : "Sheet"
+                'get_balance_sheet' : "Sheet",
+                'get_lastest_news' : 'News'
             }
         display_type = ""
 

@@ -68,6 +68,11 @@ const UserInput = () => {
                 else if (res.res.display === "Sheet"){
                     console.log(res.res.response)
                 }
+                else if (res.res.display === "News"){
+                    console.log(res.res.response)
+                    console.log(typeof(res.res.response))
+                    setChatArray((prev) => [...prev, backendOutputObject])
+                }
                 else {
                     const backendOutputObject = { id: Math.random() * 500, message: res.res.response, time: new Date(), sender: 1, display : null }
                     setChatArray((prev) => [...prev, backendOutputObject])

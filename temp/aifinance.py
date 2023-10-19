@@ -10,10 +10,10 @@ import datetime as dt
 import os
 import json
 import openai
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-openai.api_key = "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"
+# openai.api_key = ""
 
 
 
@@ -142,6 +142,15 @@ def get_balance_sheet(uid, message):
 
 
 
+def get_lastest_news(uid, message):
+    ticker = "TCS.NS"
+    data = yf.Ticker(ticker)
+    news_data = data.news
+    print(news_data)
+    return news_data
+    
+
+
 # Mapping of the intents from the .json file to train the AI chatbot to recognize patterns of speech and requests
 intents_mapping = {
     'plot_chart': plot_chart,
@@ -151,7 +160,8 @@ intents_mapping = {
     'portfolio_worth': portfolio_worth,
     'portfolio_gains': portfolio_gains,
     'user_help': user_help,
-    'get_balance_sheet' : get_balance_sheet
+    'get_balance_sheet' : get_balance_sheet,
+    'get_lastest_news' : get_lastest_news,
 }
 
 

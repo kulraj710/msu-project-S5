@@ -8,6 +8,7 @@ import { db } from '../../firebase';
 import { getDoc, doc } from "firebase/firestore"
 import { useRouter } from 'next/router';
 import { User } from '../../pages/_app';
+import NewsList from '../Display/NewsList';
 
 const ChatContainer = () => {
 
@@ -47,6 +48,11 @@ const ChatContainer = () => {
               <ChartDisplay dataFromReact={chat.displayData}/>
               </>
               : null}
+
+              {(chat.display !== null && chat.display === "News") ? <>
+                <NewsList newsList={[chat.displayData]}/>
+                {/* News{console.table(chat.displayData)} */}
+              </> : null}
             </div>
           </>
         ))}

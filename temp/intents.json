@@ -15,8 +15,13 @@
       "context_set": ""
     },
     {"tag" : ["get_balance_sheet", ""],
-    "patterns" : ["what are [stock] balance sheet details?", "tell me about [stock] balance sheet", "[stock] balance sheet please", "what are [share] balance sheet details?", "tell me about [share] balance sheet", "[share] balance sheet please", "get me income statement of [share]", "what were income of [share]", "get me income statement of [stock]", "what were income of [stock]"]
+    "patterns" : ["what are [stock] balance sheet details?", "tell me about [stock] balance sheet", "[stock] balance sheet please", "what are [share] balance sheet details?", "tell me about [share] balance sheet", "[share] balance sheet please", "get me income statement of [share]", "what were income of [share]", "get me income statement of [stock]", "what were income of [stock]"],
+    "responses" : []
   
+  },
+    {"tag" : ["get_lastest_news", ""],
+      "patterns" : ["show me latest news about [share]", "get me latest news about [stock]", "News for [stock]", "whats up with [stock]", "News [share]"],
+      "responses" : []
   }
   ]
   }
