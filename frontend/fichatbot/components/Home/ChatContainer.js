@@ -41,7 +41,7 @@ const ChatContainer = ({isAnswerLoading, setIsAnswerLoading}) => {
       <div className={styles.messageList} >
         {chatArray.map((chat) => (
           <>
-           <Chatbox key={Math.random()} positionBit={chat.sender} message={chat.message} time={formatDate(chat.time)} />
+           <Chatbox key={Math.random()} loading={isAnswerLoading} positionBit={chat.sender} message={chat.message} time={formatDate(chat.time)} />
             <div>
               {/* Rander chart here conditionaly - usestate typeof*/}
               {(chat.display !== null && chat.display === "Chart" && chat.displayData.length !== [].length) ? 

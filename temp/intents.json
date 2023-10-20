@@ -1,9 +1,13 @@
 {"intents": [
     {"tag": ["greeting", "Reliance.NS"],
-      "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day", "Whats up", "Hey", "greetings"],
-      "responses": ["Hello!", "Good to see you again!", "Hi there, how can I help?"],
+      "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day", "Whats up", "Hey", "greetings", "Hello", "Hi", "Hey","Good morning", "Good afternoon","Good evening", "Greetings", "How's it going?", "What's up?", "Yo!","Hi there, I need some assistance","Hello, can you help me?"],
+      "responses": ["Hello!", "Good to see you again!", "Hi there, how can I help?",  "Hello! How can I assist you today?", "Hi there! How can I help you?", "Hey! What can I do for you?", "Good Afternoon! What can I assist you with?", "Hello! Welcome to our service. How can I assist you?"],
       "context_set": ""
     },
+    {"tag" : ["thankyou", ""],
+     "patterns" : ["Thank you", "Thanks", "Appreciate it", "You're a lifesaver", "I'm grateful", "Thanks a lot", "Thank you so much", "I owe you one", "You've been really helpful", "I can't thank you enough"],
+     "responses"  : ["You're welcome!","You're very welcome. Is there anything else I can do for you?","No problem at all. If you have more questions, feel free to ask.","Glad I could help. Let me know if you need anything else.","It was my pleasure. If you have any more questions, just let me know."]
+  },
     {"tag": ["goodbye", "Reliance.NS"],
       "patterns": ["cya", "See you later", "Goodbye", "I am Leaving", "Have a Good day", "bye", "cao", "see ya"],
       "responses": ["Sad to see you go :(", "Talk to you later", "Goodbye!"],
@@ -26,6 +30,8 @@
 
     {"tag" : ["get_generic_answer", ""],
     "patterns" : [
+      "tell me about [topic]",
+      "enlighten me about [topic]",
       "What is a P/E ratio (Price-to-Earnings ratio) and how is it calculated?",
       "What is the difference between a stock and a bond?",
       "How does diversification reduce risk in a stock portfolio?",
