@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import ChatContainer from './ChatContainer';
 import { useRouter } from 'next/router';
+import DefaultPage from './DefaultPage';
 
 const Content = () => {
-  
+
   const router = useRouter()
   const [hydrated, setHydrated] = React.useState(false);
   useEffect(() => {
@@ -20,13 +21,15 @@ const Content = () => {
   if (id) {
     // Render the component if 'id' is present in the URL
     return (
-      <div>
-        <ChatContainer />
-      </div>
+      <>
+        <div>
+          <ChatContainer />
+        </div>
+      </>
     );
   } else {
     // Render something else or nothing if 'id' is not present
-    return <div>No id is provided, show default message</div>;
+    return <div><DefaultPage /></div>;
   }
 }
 

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Navbar from './Navbar'
 import UserInput from './UserInput'
 import Content from './Content'
@@ -24,6 +24,7 @@ const ContentContainer = () => {
         }
     }, [])
     
+    const [isAnswerLoading, setIsAnswerLoading] = useState(false)
 
     return (
         <div className={styles.container}>
@@ -31,10 +32,11 @@ const ContentContainer = () => {
                 <Navbar />
             </div>
             <div className={styles.content}>
-                <Content />
+                <Content isAnswerLoading={isAnswerLoading} setIsAnswerLoading={setIsAnswerLoading}/>
             </div>
             <div>
-                <UserInput/>
+                <UserInput isLoading={isAnswerLoading} setIsLoading={setIsAnswerLoading}/>
+                
             </div>
         </div>
     )

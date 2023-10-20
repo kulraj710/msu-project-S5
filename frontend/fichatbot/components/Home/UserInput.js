@@ -11,7 +11,7 @@ import { doc, arrayUnion, updateDoc } from "firebase/firestore"
 import {db} from "../../firebase"
 import { useRouter } from 'next/router';
 
-const UserInput = () => {
+const UserInput = ({isLoading, setIsLoading}) => {
 
     const localhost = true
 
@@ -33,7 +33,7 @@ const UserInput = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-
+        setIsLoading(true)
         const userInputObject = { 
             id: Math.floor(Math.random() * 100), 
             message: userInput, 
@@ -85,6 +85,8 @@ const UserInput = () => {
                 console.error(err)
             })
         }
+
+        setIsLoading(false)
     }
 
 

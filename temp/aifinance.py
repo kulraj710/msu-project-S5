@@ -13,6 +13,8 @@ import openai
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
+from helper import get_answer
+
 # openai.api_key = ""
 
 
@@ -112,26 +114,17 @@ def plot_chart(uid, message=None):
     )
     a = completion.choices[0].message.content
 
-    dictionary = json.loads(a)
+    try:
+        dictionary = json.loads(a)
 
-    ticker = dictionary['stock']
-    print(ticker)
+        ticker = dictionary['stock']
+        print(type(ticker))
+        stock_data = yf.download(ticker, period="6mo", interval="1d")  # Replace with desired date range
+        return stock_data.to_dict(orient="records")
+    except Exception as e:
+        return []
     
-    stock_data = yf.download(ticker, period="6mo", interval="1d")  # Replace with desired date range
-    return stock_data.to_dict(orient="records")
     
-        
-    # start_string = input("Choose a starting date (YYYY-): ")
-
-# class TickerEncoder(json.JSONEncoder):
-#     def default(self, obj):
-#         if isinstance(obj, yf.Ticker):
-#             return obj.info
-#         return super().default(obj)
-
-
-# Serialize the Ticker object to JSON
-
     
 def get_balance_sheet(uid, message):
     ticker = "ITC.NS"
@@ -151,6 +144,9 @@ def get_lastest_news(uid, message):
     
 
 
+def get_generic_answer(uid, message):
+    return str(get_answer(message))
+
 # Mapping of the intents from the .json file to train the AI chatbot to recognize patterns of speech and requests
 intents_mapping = {
     'plot_chart': plot_chart,
@@ -162,6 +158,7 @@ intents_mapping = {
     'user_help': user_help,
     'get_balance_sheet' : get_balance_sheet,
     'get_lastest_news' : get_lastest_news,
+    'get_generic_answer' : get_generic_answer
 }
 
 

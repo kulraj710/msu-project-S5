@@ -7,7 +7,7 @@ import Logo from "../../public/full-logo.svg";
 import { MenuStyles } from '../../Context/MenuStylesContext.jsx'
 import SidebarConversationBox from './SidebarConversationBox'
 import { useRouter } from 'next/router';
-import { collection, addDoc, Timestamp, getDocs } from "firebase/firestore"; 
+import { collection, addDoc, Timestamp, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from '../../firebase'
 import { ChatId } from '../../Context/CurrentChatId'
 import { User } from '../../pages/_app'
@@ -22,35 +22,35 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (currentUser) {
-      
-    const collectionRef = collection(db, `chatHistory/${currentUser.uid}/chat`);
 
-    getDocs(collectionRef)
-      .then((querySnapshot) => {
-      let arr = []
-      querySnapshot.forEach((doc) => {
-      console.log('Document ID:', doc.id);
-        arr.push(doc.id)
-      // You can access other metadata like doc.ref, doc.createTime, etc.
-      });
-      setAddConversation(arr)
-  })
-  .catch((error) => {
-    console.error('Error getting documents:', error);
-  })
+      const collectionRef = collection(db, `chatHistory/${currentUser.uid}/chat`);
+      const q = query(collectionRef, orderBy("date", "desc"))
+
+      getDocs(q)
+        .then((querySnapshot) => {
+          let arr = []
+          querySnapshot.forEach((doc) => {
+            arr.push(doc.data().date)
+            // You can access other metadata like doc.ref, doc.createTime, etc.
+          });
+          setAddConversation(arr)
+        })
+        .catch((error) => {
+          console.error('Error getting documents:', error);
+        })
     }
   }, [])
-  
+
 
   const { width768, showSidebar } = useContext(MenuStyles)
 
-  const handleNewConversation = async () => {    
+  const handleNewConversation = async () => {
     const newChatRef = await addDoc((collection(db, `chatHistory/${currentUser.uid}/chat`)), {
-          chatArray : [],
-          date : Timestamp.now()
-        })
-      setCurrentChatId(newChatRef.id)
-      router.push(`/?id=${newChatRef.id}`)
+      chatArray: [],
+      date: Timestamp.now()
+    })
+    setCurrentChatId(newChatRef.id)
+    router.push(`/?id=${newChatRef.id}`)
   }
 
   const showMenuStyles = {
@@ -67,17 +67,17 @@ const Sidebar = () => {
         </div>
 
         <div className={styles.logo}>
-          <Image src={Logo} width={50} height={50} alt="logo-icon"/>
+          <Image src={Logo} width={50} height={50} alt="logo-icon" />
         </div>
       </section>
 
       <section className={styles.section2Container}>
         {
-          addConversation.map((each => (
+          addConversation.map(((each, index) => (
             <div key={each}>
-              <SidebarConversationBox style={styles.section2}  id={each}/>
+              <SidebarConversationBox style={styles.section2} id={each} index={index+1}/>
             </div>
-            )))
+          )))
         }
       </section>
 

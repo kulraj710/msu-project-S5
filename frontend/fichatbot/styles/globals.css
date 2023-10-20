@@ -28,6 +28,9 @@ li {
   --width-sidebar: 310px;
   --width-sidebar-negative: -310px;
   --primary: #E7F8FF;
+  --animationTime: 0.8s;
+  --dotSize: 20px;
+
 }
 
 ::-webkit-scrollbar {

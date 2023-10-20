@@ -22,6 +22,31 @@
     {"tag" : ["get_lastest_news", ""],
       "patterns" : ["show me latest news about [share]", "get me latest news about [stock]", "News for [stock]", "whats up with [stock]", "News [share]"],
       "responses" : []
+  },
+
+    {"tag" : ["get_generic_answer", ""],
+    "patterns" : [
+      "What is a P/E ratio (Price-to-Earnings ratio) and how is it calculated?",
+      "What is the difference between a stock and a bond?",
+      "How does diversification reduce risk in a stock portfolio?",
+      "What is market capitalization, and why is it important for investors?",
+      "How does the stock market work, and what is the role of stock exchanges?",
+      "What is a dividend yield, and why do investors pay attention to it?",
+      "What are the key differences between common stock and preferred stock?",
+      "What is insider trading, and why is it illegal?",
+      "How are stock prices determined in the stock market?",
+      "What is the role of a stockbroker, and how do they execute stock trades?",
+      "What is a stock split, and how does it affect the value of a stock?",
+      "What is the significance of the Dow Jones Industrial Average (DJIA) in financial markets?",
+      "What is a bull market, and how does it differ from a bear market?",
+      "How does inflation impact investments and the purchasing power of money?",
+      "What are the primary factors that influence a company's credit rating?",
+      "What is the difference between a mutual fund and an exchange-traded fund (ETF)?",
+      "How do options and futures contracts work in the stock market?",
+      "What is the role of the Federal Reserve in monetary policy and its impact on financial markets?",
+      "How can an individual calculate their return on investment (ROI) for a particular stock or investment portfolio?"
+  ],
+    "responses" : []    
   }
   ]
   }
