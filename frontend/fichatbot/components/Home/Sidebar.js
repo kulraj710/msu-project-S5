@@ -30,7 +30,7 @@ const Sidebar = () => {
         .then((querySnapshot) => {
           let arr = []
           querySnapshot.forEach((doc) => {
-            arr.push(doc.data().date)
+            arr.push({date : doc.data().date, id : doc.id})
             // You can access other metadata like doc.ref, doc.createTime, etc.
           });
           setAddConversation(arr)

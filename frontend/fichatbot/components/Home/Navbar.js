@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className={styles.menu}>
           <Image src={Menu} width={30} height={30} alt='menu-icon' onClick={handleMenu}/>
         </div>
-        <h1>New Conversion</h1>
+        <h1>New Conversation</h1>
       </div>
 
       <div>
