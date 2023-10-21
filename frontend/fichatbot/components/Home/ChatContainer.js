@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { User } from '../../pages/_app';
 import NewsList from '../Display/NewsList';
 import Typing from '../Display/Typing';
+import PortfolioV from '../Display/PortfolioV';
 
 const ChatContainer = ({isAnswerLoading, setIsAnswerLoading}) => {
 
@@ -30,18 +31,18 @@ const ChatContainer = ({isAnswerLoading, setIsAnswerLoading}) => {
       setChatArray(docSnap.data().chatArray)
       } else {
       // docSnap.data() will be undefined in this case
+      // setChatArray([])
 }
     }
     temp()
   }, [])
   
-
   return (
     <div className={styles.ChatContainer}>
       <div className={styles.messageList} >
-        {chatArray.map((chat) => (
+        {chatArray.map((chat, index, chatArray) => (
           <>
-           <Chatbox key={Math.random()} loading={isAnswerLoading} positionBit={chat.sender} message={chat.message} time={formatDate(chat.time)} />
+           <Chatbox key={Math.random()} positionBit={chat.sender} message={chat.message} time={formatDate(chat.time)} />
             <div>
               {/* Rander chart here conditionaly - usestate typeof*/}
               {(chat.display !== null && chat.display === "Chart" && chat.displayData.length !== [].length) ? 
@@ -49,10 +50,15 @@ const ChatContainer = ({isAnswerLoading, setIsAnswerLoading}) => {
               <ChartDisplay dataFromReact={chat.displayData}/>
               </>
               : null}
+          {(isAnswerLoading && index === chatArray.length - 1) ? <Chatbox positionBit={1} key={chat.id} message={<Typing/>} time={""}/> : null}
 
               {(chat.display !== null && chat.display === "News") ? <>
                 <NewsList newsList={[chat.displayData]}/>
-                {/* News{console.table(chat.displayData)} */}
+              </> : null}
+
+              {(chat.display !== null && chat.display === "Portfolio") ? 
+              <>
+              <PortfolioV/>
               </> : null}
             </div>
           </>

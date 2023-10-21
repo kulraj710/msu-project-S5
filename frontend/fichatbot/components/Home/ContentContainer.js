@@ -5,7 +5,6 @@ import Content from './Content'
 import styles from '../../styles/Home/ContentContainer.module.css'
 import { Chat } from '../../Context/ChatContext'
 import { User } from '../../pages/_app'
-import Link from "next/link"
 
 const ContentContainer = () => {
 
@@ -17,10 +16,10 @@ const ContentContainer = () => {
 
     useEffect(() => {
         if (currentUser !== null) {
-            setChatArray([{id : 1, message : welcomeString(currentUser.name), sender : 1}])      
+            setChatArray([{id : 1, message : welcomeString(currentUser.name), sender : 1, time : new Date()}])      
         }
         else{
-            setChatArray([{id : 1, message : loginString(), sender : 1}])      
+            setChatArray([{id : 1, message : loginString(), sender : 1, time : new Date()}])      
         }
     }, [])
     
@@ -35,7 +34,7 @@ const ContentContainer = () => {
                 <Content isAnswerLoading={isAnswerLoading} setIsAnswerLoading={setIsAnswerLoading}/>
             </div>
             <div>
-                <UserInput isLoading={isAnswerLoading} setIsLoading={setIsAnswerLoading}/>
+                <UserInput isAnswerLoading={isAnswerLoading} setIsAnswerLoading={setIsAnswerLoading}/>
                 
             </div>
         </div>

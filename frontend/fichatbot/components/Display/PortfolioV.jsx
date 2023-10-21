@@ -1,11 +1,9 @@
-import React from "react";
-import styles from "../styles/Display/portfolio.module.css"
-import StockPieChart from "../components/Display/StockPieChart";
-import StockDoughnutChart from "../components/Display/StockDoughnutChart";
+import React from 'react'
+import styles from "../../styles/Display/portfolio.module.css"
+import StockDoughnutChart from './StockDoughnutChart'
+import StockPieChart from './StockPieChart'
 
-
-const chart = () => {
-  
+const PortfolioV = () => {
   return (
     <div>
           <h2 className={styles.heading}>Portfolio Performance</h2>
@@ -29,7 +27,7 @@ const chart = () => {
 
         <div className={styles.chartContainer}>
           <div>
-        <StockPieChart />
+        <StockPieChart  />
         </div>
         <div>
           <StockDoughnutChart/>
@@ -37,7 +35,7 @@ const chart = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default chart;
+export default PortfolioV

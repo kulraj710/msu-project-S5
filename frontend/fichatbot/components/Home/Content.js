@@ -3,7 +3,7 @@ import ChatContainer from './ChatContainer';
 import { useRouter } from 'next/router';
 import DefaultPage from './DefaultPage';
 
-const Content = () => {
+const Content = ({isAnswerLoading, setIsAnswerLoading}) => {
 
   const router = useRouter()
   const [hydrated, setHydrated] = React.useState(false);
@@ -23,7 +23,7 @@ const Content = () => {
     return (
       <>
         <div>
-          <ChatContainer />
+          <ChatContainer isAnswerLoading={isAnswerLoading} setIsAnswerLoading={setIsAnswerLoading}/>
         </div>
       </>
     );

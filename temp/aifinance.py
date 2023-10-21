@@ -1,5 +1,8 @@
 from main import GenericAssistant
-# from neuralintents import GenericAssistant
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+from datetime import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
 import pandas_datareader as web
@@ -11,97 +14,149 @@ import os
 import json
 import openai
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
-
 from helper import get_answer
 
-# openai.api_key = ""
+# firestore db
+cred = credentials.Certificate('C:/Users/kulra/Desktop/msu mini project/msu-project-S5/temp/mini-project-auth-2a307-9f09894308f4.json')
+
+app = firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 
-
-portfolio = {}
-# with open('portfolio.pkl', 'wb') as f:
-#     pickle.dump(portfolio, f)
-
-with open('portfolio.pkl', 'rb') as f:
-    portfolio = pickle.load(f)
-
-# Saves any modification made to the portfolio
-def save_portfolio(uid):
-    with open('portfolio.pkl', 'wb') as f:
-        pickle.dump(portfolio, f)
 
 def user_help():
-    print("I am able to the do the current functions for you: \n"
-          "1 - Show you your portfolio and all the shares it contains\n"
-          "2 - Add the desired amount of shares of a firm to your portfolio\n"
-          "3 - Remove a certain amount of shares of a firm from your portfolio\n"
-          "4 - Calculate the current worth of your portfolio\n"
-          "5 - Compute the portfolio gains you made in stock value when compared to the date of your choice\n"
-          "6 - Chart the price evolution of a stock from a requested date up to today")
+    pass
 
 # Add a firm's share into the user's portfolio
-def add_portfolio(ticker, nb_shares, uid):
-    # ticker = input("Which stock would you like to add to your portfolio ? : ")
-    # nb_shares = input("How many shares would you like to buy ? : ")
+def add_or_update_stock(uid, message):
+    # company_name, ticker, purchase_price, quantity, purchase_date, sector
+    ticker = "TCS.NS"
+    company_name = "Tata consultancy services"
+    purchase_price = 100
+    quantity = 200
+    sector = "IT"
+    # Create references to the user's document and the "stocks" subcollection
+    user_ref = db.collection("portfolio").document(uid)
+    stocks_ref = user_ref.collection("stocks")
+    
+    # Query for existing stocks with the same ticker
+    query = stocks_ref.where("ticker", "==", ticker)
+    stock_query = query.stream()
+    
+    # Check if a stock with the same ticker already exists
+    existing_stock = None
+    for stock in stock_query:
+        existing_stock = stock.reference
+    
+    if existing_stock:
+        # If the stock with the same ticker exists, update its data
+        existing_stock_data = existing_stock.get().to_dict()
+        existing_quantity = existing_stock_data.get("quantity", 0)
+        existing_purchase_price = existing_stock_data.get("purchase_price", 0)
 
-    if ticker in portfolio.keys():
-        portfolio[ticker] += int(nb_shares)
+        updated_quantity = existing_quantity + quantity
+        updated_purchase_price = (existing_purchase_price + purchase_price) / 2  # Calculate new average price
+        updated_purchase_date = datetime.now() # You can implement your own logic for updating the date
+        
+        existing_stock.update({
+            "quantity": updated_quantity,
+            "purchase_price": updated_purchase_price,
+            "purchase_date": updated_purchase_date
+        })
+        
+        return (f"Stock with ticker '{ticker}' updated in Firestore")
     else:
-        portfolio[ticker] = int(nb_shares)
-    save_portfolio()
+        # If the stock doesn't exist, create a new stock document
+        stock_ref = stocks_ref.add({
+            "company_name": company_name,
+            "ticker": ticker,
+            "purchase_price": purchase_price,
+            "quantity": quantity,
+            "purchase_date": datetime.now(),
+            "sector": sector
+        })
+        
+        return (f"New stock with ticker '{ticker}' added to Firestore: {stock_ref}")
+
 
 
 # Removes a share from the user's porfolio
-def remove_portfolio(uid):
-    ticker = input("Which stock would you like to sell from your portfolio ? : ")
-    nb_shares = input("How many shares would you like to sell ? : ")
-
-    if ticker in portfolio.keys():
-        if int(nb_shares) <= portfolio[ticker]:
-            portfolio[ticker] -= int(nb_shares)
-            if portfolio[ticker] == 0:
-                portfolio.pop(ticker)
-            save_portfolio()
+def sell_stock(uid, message):
+    
+    # ticker, sell_quantity, current_price
+    ticker = "TCS.NS"
+    sell_quantity = 10
+    current_price = 90
+    # Create references to the user's document and the "stocks" subcollection
+    user_ref = db.collection("portfolio").document(uid)
+    stocks_ref = user_ref.collection("stocks")
+    
+    # Query for the stock with the specified ticker
+    query = stocks_ref.where("ticker", "==", ticker)
+    stock_query = query.stream()
+    
+    # Check if a stock with the same ticker exists
+    existing_stock = None
+    for stock in stock_query:
+        existing_stock = stock.reference
+    
+    if existing_stock:
+        # If the stock with the same ticker exists, update its data
+        existing_stock_data = existing_stock.get().to_dict()
+        existing_quantity = existing_stock_data.get("quantity", 0)
+        purchase_price = existing_stock_data.get("purchase_price", 0)
+        
+        if existing_quantity >= sell_quantity:
+            updated_quantity = existing_quantity - sell_quantity
+            gains_or_losses = (current_price - purchase_price) * sell_quantity
+            
+            existing_stock.update({
+                "quantity": updated_quantity
+            })
+            
+            return (f"Sold {sell_quantity} shares of '{ticker}' for a {gains_or_losses:+.2f} gain/loss")
+            
+            # return gains_or_losses
         else:
-            print("You don't have enough shares to do that!")
+            # Error: Trying to sell more shares than available
+            return (f"Error: Insufficient shares of '{ticker}' for sale")
+            # return None
     else:
-        print(f"You don't own any shares of {ticker}")
+        # Error: Ticker not found
+        return (f"Error: '{ticker}' not found in your portfolio")
+        # return None
 
 
 # Show the number of shares in the user's porfolio
-def show_porfolio(uid):
-    print("Your portfolio: ")
-    for ticker in portfolio.keys():
-        print(f"You own {portfolio[ticker]} shares of {ticker}")
+def calculate_net_gains_or_losses(uid, message):
+    
+    # Create references to the user's document and the "stocks" subcollection
+    user_ref = db.collection("portfolio").document(uid)
+    stocks_ref = user_ref.collection("stocks")
+    
+    total_gains_or_losses = 0
+    total_investment = 0  # Total cost of all stocks
+    
+    # Iterate through all the stocks in the "stocks" subcollection
+    for stock in stocks_ref.stream():
+        stock_data = stock.to_dict()
+        quantity = stock_data.get("quantity", 0)
+        purchase_price = stock_data.get("purchase_price", 0)
+        current_price = 500 # Get the current price for this stock
+        
+        # Calculate gains or losses for this stock
+        gains_or_losses = (current_price - purchase_price) * quantity
+        total_gains_or_losses += gains_or_losses
+        
+        # Calculate the cost of this stock
+        total_investment += purchase_price * quantity
+    
+    # Calculate the percentage of gains or losses
+    percentage_gains_or_losses = (total_gains_or_losses / total_investment) * 100
+    
+    return total_gains_or_losses, percentage_gains_or_losses
 
-
-# Returns the value of the actual porfolio in USD
-def portfolio_worth(uid):
-    sum = 0
-    for ticker in portfolio.keys():
-        stock_data = web.DataReader(ticker, 'yahoo')
-        stock_price = stock_data['Close'].iloc[-1]
-        sum += stock_price
-    print(f"Your portfolio is worth {sum} USD")
-
-
-# Showcase the gain of value of the porfolio stocks compared to the user inputted date
-def portfolio_gains(uid):
-    start_date = input("Enter the date you want to use for comparison (YYYY-MM-DD): ")
-    sum_today = 0
-    sum_start = 0
-    try:
-        for ticker in portfolio.keys():
-            stock_data = web.DataReader(ticker, 'yahoo')
-            stock_price_today = stock_data['Close'].iloc[-1]
-            stock_price_start = stock_data.loc[stock_data.index == start_date]['Close'].values[0]
-            sum_today += stock_price_today
-            sum_start += stock_price_start
-        print(f"Relative Gains: {((sum_today - sum_start) / sum_start) * 100}%")
-        print(f"Absolute Gains: {sum_today - sum_start} USD")
-    except IndexError:
-        print("There wasn't any trading happening on this day !")
 
 
 def plot_chart(uid, message=None):
@@ -150,12 +205,12 @@ def get_generic_answer(uid, message):
 # Mapping of the intents from the .json file to train the AI chatbot to recognize patterns of speech and requests
 intents_mapping = {
     'plot_chart': plot_chart,
-    'add_portfolio': add_portfolio,
-    'remove_portfolio': remove_portfolio,
-    'show_portfolio': show_porfolio,
-    'portfolio_worth': portfolio_worth,
-    'portfolio_gains': portfolio_gains,
-    'user_help': user_help,
+    # 'add_portfolio': add_portfolio,
+    # 'remove_portfolio': remove_portfolio,
+    # 'show_portfolio': show_porfolio,
+    # 'portfolio_worth': portfolio_worth,
+    # 'portfolio_gains': portfolio_gains,
+    # 'user_help': user_help,
     'get_balance_sheet' : get_balance_sheet,
     'get_lastest_news' : get_lastest_news,
     'get_generic_answer' : get_generic_answer
@@ -186,7 +241,7 @@ class Chat(Resource):
     def post(self):
         message = request.get_json()['req']
         logged_in_user_id = request.headers.get('uid')
-        res = assistant_AI.request(message)  # Ask something to the assistant
+        res = assistant_AI.request(message, logged_in_user_id)  # Ask something to the assistant
         print(res)
         return jsonify({'res' : res})
 

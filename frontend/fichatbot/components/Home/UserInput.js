@@ -11,10 +11,9 @@ import { doc, arrayUnion, updateDoc } from "firebase/firestore"
 import {db} from "../../firebase"
 import { useRouter } from 'next/router';
 
-const UserInput = ({isLoading, setIsLoading}) => {
+const UserInput = ({isAnswerLoading, setIsAnswerLoading}) => {
 
     const localhost = true
-
     const router = useRouter()
     const { id } = router.query
 
@@ -33,7 +32,6 @@ const UserInput = ({isLoading, setIsLoading}) => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        setIsLoading(true)
         const userInputObject = { 
             id: Math.floor(Math.random() * 100), 
             message: userInput, 
@@ -44,11 +42,10 @@ const UserInput = ({isLoading, setIsLoading}) => {
         setChatArray((prev) => [...prev, userInputObject])
 
         setUserInput("")
-
         if (localhost) {
+        setIsAnswerLoading(true)
             const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
             r.then(async res => {
-                
                 const backendOutputObject = { 
                     id: Math.random() * 500, 
                     message: (res.res.response.length === [].length) ? "Sorry I do not have data for the mentioned stock or you did not mention any stock at all, please try again!" : "Here you go,", 
@@ -80,13 +77,14 @@ const UserInput = ({isLoading, setIsLoading}) => {
                     // update db
                     updateFirestoreDbArray(userInputObject, backendOutputObject)
                 }
+            setIsAnswerLoading(false)
             }).catch((err) => {
                 alert('Error', err)
                 console.error(err)
+                setIsAnswerLoading(false)
+
             })
         }
-
-        setIsLoading(false)
     }
 
 
