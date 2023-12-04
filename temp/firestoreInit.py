@@ -19,7 +19,6 @@ db = firestore.client()
 # else:
 #     print("No such document!")
 
-
 import yfinance as yf
 
 def get_stock_info(ticker_symbol, number_shares=1):
@@ -206,7 +205,7 @@ def calculate_net_gains_or_losses(user_id):
         
         # Calculate the cost of this stock
         total_investment += purchase_price * quantity
-    
+
     # Calculate the percentage of gains or losses
     percentage_gains_or_losses = (total_gains_or_losses / total_investment) * 100
     

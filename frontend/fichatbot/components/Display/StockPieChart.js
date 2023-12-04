@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const StockPieChart = () => {
     const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['HDFC', 'AAPL', 'ICICI BANK', 'Reliance', 'ITC', 'TCS'],
         datasets: [
           {
             labels: ['Value A', 'Value B', 'Value C'],

@@ -28,6 +28,13 @@ db = firestore.client()
 def user_help():
     pass
 
+
+
+def getStock(t):
+    tick = yf.Ticker(t)
+    hist = tick.history(period="1d")
+    str(hist["Close"].values[0])
+    
 # Add a firm's share into the user's portfolio
 def add_or_update_stock(uid, message):
     # company_name, ticker, purchase_price, quantity, purchase_date, sector

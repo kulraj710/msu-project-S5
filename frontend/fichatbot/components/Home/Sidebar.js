@@ -45,12 +45,17 @@ const Sidebar = () => {
   const { width768, showSidebar } = useContext(MenuStyles)
 
   const handleNewConversation = async () => {
+    if (currentUser){
     const newChatRef = await addDoc((collection(db, `chatHistory/${currentUser.uid}/chat`)), {
       chatArray: [],
       date: Timestamp.now()
     })
     setCurrentChatId(newChatRef.id)
     router.push(`/?id=${newChatRef.id}`)
+  }
+  if (!currentUser){
+    alert("You must login to stat a new chat!")
+  }
   }
 
   const showMenuStyles = {
@@ -89,7 +94,7 @@ const Sidebar = () => {
             <Image alt='github logo' src={Github} width={25} height={25} />
           </div>
           <div>
-            <button className={styles.newButton} onClick={handleNewConversation}>
+            <button className={styles.newButton} onClick={handleNewConversation} >
               <Image alt='logo' src={Add} width={20} height={20} className={styles.bottomImage1} />
               <span>New Chat</span>
             </button>

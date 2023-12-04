@@ -42,51 +42,62 @@ const UserInput = ({isAnswerLoading, setIsAnswerLoading}) => {
         setChatArray((prev) => [...prev, userInputObject])
 
         setUserInput("")
-        if (localhost) {
-        setIsAnswerLoading(true)
-            const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
-            r.then(async res => {
-                const backendOutputObject = { 
-                    id: Math.random() * 500, 
-                    message: (res.res.response.length === [].length) ? "Sorry I do not have data for the mentioned stock or you did not mention any stock at all, please try again!" : "Here you go,", 
-                    time: new Date(), 
-                    sender: 1, 
-                    display : res.res.display, 
-                    displayData : res.res.response 
-                }
+        // if (localhost) {
+        // setIsAnswerLoading(true)
+        //     const r = postData("http://127.0.0.1:5000/chat", { "req": userInput })
+        //     r.then(async res => {
+        //         const backendOutputObject = { 
+        //             id: Math.random() * 500, 
+        //             message: (res.res.response.length === [].length) ? "Sorry I do not have data for the mentioned stock or you did not mention any stock at all, please try again!" : "Here you go,", 
+        //             time: new Date(), 
+        //             sender: 1, 
+        //             display : res.res.display, 
+        //             displayData : res.res.response 
+        //         }
 
-                if (res.res.display === "Chart") {
-                    setChatArray((prev) => [...prev, backendOutputObject])
+        //         if (res.res.display === "Chart") {
+        //             setChatArray((prev) => [...prev, backendOutputObject])
                     
-                    // update db
-                    updateFirestoreDbArray(userInputObject, backendOutputObject)
-                }
+        //             // update db
+        //             updateFirestoreDbArray(userInputObject, backendOutputObject)
+        //         }
                 
-                else if (res.res.display === "Sheet"){
-                    console.log(res.res.response)
-                }
-                else if (res.res.display === "News"){
-                    console.log(res.res.response)
-                    console.log(typeof(res.res.response))
-                    setChatArray((prev) => [...prev, backendOutputObject])
-                }
-                else {
-                    const backendOutputObject = { id: Math.random() * 500, message: res.res.response, time: new Date(), sender: 1, display : null }
-                    setChatArray((prev) => [...prev, backendOutputObject])
+        //         else if (res.res.display === "Sheet"){
+        //             console.log(res.res.response)
+        //         }
+        //         else if (res.res.display === "News"){
+        //             console.log(res.res.response)
+        //             console.log(typeof(res.res.response))
+        //             setChatArray((prev) => [...prev, backendOutputObject])
+        //         }
+        //         else {
+        //             const backendOutputObject = { id: Math.random() * 500, message: res.res.response, time: new Date(), sender: 1, display : null }
+        //             setChatArray((prev) => [...prev, backendOutputObject])
                     
-                    // update db
-                    updateFirestoreDbArray(userInputObject, backendOutputObject)
-                }
-            setIsAnswerLoading(false)
-            }).catch((err) => {
-                alert('Error', err)
-                console.error(err)
-                setIsAnswerLoading(false)
+        //             // update db
+        //             updateFirestoreDbArray(userInputObject, backendOutputObject)
+        //         }
+        //     setIsAnswerLoading(false)
+        //     }).catch((err) => {
+        //         alert('Error', err)
+        //         console.error(err)
+        //         setIsAnswerLoading(false)
 
-            })
-        }
+        //     })
+        // }
+
+        const backendOutputObject = { 
+                        id: Math.random() * 500, 
+                        message: "Show me how my portfolio is doing", 
+                        time: new Date(), 
+                        sender: 0, 
+                        display : "Portfolio", 
+                        displayData : "" 
+                    }
+
+        setChatArray([backendOutputObject])
+
     }
-
 
     return (
         <div className={styles.container}>
@@ -94,14 +105,15 @@ const UserInput = ({isAnswerLoading, setIsAnswerLoading}) => {
                 <form onSubmit={submitHandler}>
                     <OutlinedInput
                         // disabled
-                        placeholder='Enter your prompt...'
+                        placeholder='(disabled) Server is Offline, contact the developer'
                         value={userInput}
+                        disabled={true}
                         onChange={(e) => { setUserInput(e.target.value) }}
                         fullWidth
                         style={{ boxShadow: "0px 0px 1px 0px rgba(194,194,194,1)" }}
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton type='submit'><SendIcon /></IconButton>
+                                <IconButton type='submit' disabled><SendIcon /></IconButton>
                             </InputAdornment>
                         }
                     />

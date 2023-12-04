@@ -1,6 +1,6 @@
 .boxHeader {
     padding-top: 7rem;
-    padding-bottom: 13rem;
+    padding-bottom: 8rem;
     text-align: center;
     color: grey;
     font-size: 35px;
@@ -14,7 +14,7 @@
 
 .ParentContainer {
     width: 90%;
-    height: 40%;
+    height: 20%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;

@@ -37,6 +37,9 @@ const LoginSection = () => {
 
           <div id={styles.welcome}>
             <h1>Login</h1>
+            <p>use sample login :  </p>
+            <p>Email :  test123@gmail.com</p>
+            <p>password :  test1234</p>
           </div>
 
           <div className={styles.googleLogin}>

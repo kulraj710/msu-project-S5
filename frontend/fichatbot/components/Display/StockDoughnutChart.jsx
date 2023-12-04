@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const StockDoughnutChart = () => {
     const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['HDFC', 'AAPL', 'ICICI BANK', 'Reliance', 'ITC', 'TCS'],
         datasets: [
           {
             label: '# of Votes',

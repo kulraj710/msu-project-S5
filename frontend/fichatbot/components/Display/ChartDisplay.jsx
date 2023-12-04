@@ -16,7 +16,7 @@ export const options = {
       text: 'Share price for last 3 months',
     },
   },
-};
+}
 
 
 

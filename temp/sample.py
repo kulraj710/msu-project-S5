@@ -16,7 +16,7 @@ def plot_chart():
     start_date = dt.datetime.strptime(start_string, "%d%m%Y")
     end_date = dt.datetime.now()
     stock_data = web.DataReader(ticker, 'yahoo', start_date, end_date)
-
+    
     # Visual set up for the candlestick chart (from mplfinance)
     plt.style.use('dark_background')
     colors = mpf.make_marketcolors(up='#00ff00', down='#ff0000', volume='in', wick='inherit', edge='inherit')
