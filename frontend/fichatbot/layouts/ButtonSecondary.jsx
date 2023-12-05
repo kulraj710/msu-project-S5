@@ -1,6 +1,5 @@
 import React from 'react'
-import s from "../styles/Layouts/ButtonSecondary.module.css"
-
+import s from "../styles/Layouts/BtnSecondary.module.css"
 
 const ButtonSecondary = ({ onClick, id, styles, type, label }) => {
     return (
