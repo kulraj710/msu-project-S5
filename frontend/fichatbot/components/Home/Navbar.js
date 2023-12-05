@@ -4,11 +4,11 @@ import { auth } from "../../firebase.js"
 import Avatar from '@mui/material/Avatar'
 import { signOut } from "firebase/auth"
 import { User } from '../../pages/_app'
-import ButtonSecondary from '../../Layouts/ButtonSecondary'
 import { useRouter } from 'next/router'
 import Menu from '../../public/icons/menu.svg'
 import Image from 'next/image'
 import { MenuStyles } from '../../Context/MenuStylesContext.jsx'
+import Button2 from '../../layouts/Button2.jsx'
 
 const Navbar = () => {
 
@@ -48,7 +48,7 @@ const Navbar = () => {
             (currentUser) ? <Avatar sx={{ bgcolor: "lightblue" }}>{(!currentUser.name) ? "O" : currentUser.name[0]}</Avatar> : null}
           </li>
           <li id='btn2'>
-            {(currentUser) ? <ButtonSecondary label={"Logout"} onClick={logoutHandler} /> : <ButtonSecondary label={"Login"} onClick={() => router.push("/login")} />}
+            {(currentUser) ? <Button2 label={"Logout"} onClick={logoutHandler} /> : <Button2 label={"Login"} onClick={() => router.push("/login")} />}
           </li>
 
         </ul>

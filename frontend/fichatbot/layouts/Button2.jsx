@@ -1,7 +1,7 @@
 import React from 'react'
 import s from "../styles/Layouts/BtnSecondary.module.css"
 
-const ButtonSecondary = ({ onClick, id, styles, type, label }) => {
+const Button2 = ({ onClick, id, styles, type, label }) => {
     return (
         <div>
             <button
@@ -17,4 +17,4 @@ const ButtonSecondary = ({ onClick, id, styles, type, label }) => {
     )
 }
 
-export default ButtonSecondary
+export default Button2
