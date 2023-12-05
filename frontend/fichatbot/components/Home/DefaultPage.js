@@ -27,15 +27,6 @@ const DefaultPage = () => {
                     head={"Portfolio Management"}
                     text={"Efficiently manage investment portfolios, review asset allocation, and receive recommendations for optimizing investments."}
                 />
-                {/* <DefaultPageBox
-                    className={styles.firstBox} head={"Heading-5"}
-                    text={"Description-5"}
-                />
-                <DefaultPageBox
-                    className={styles.firstBox}
-                    head={"Heading-6"}
-                    text={"Description-6"}
-                /> */}
             </div>
         </div>
     )
